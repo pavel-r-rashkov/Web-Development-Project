@@ -82,7 +82,7 @@ class ActionInvoker {
 	}
 
 	private function assertHttpMethod() {
-
+		
 	}
 }
 
