@@ -4,11 +4,13 @@ class Route {
 	private $routePath;
 	private $controllerName;
 	private $actionName;
+	private $namespaces;
 
-	public function __construct($routePath, $controllerName, $actionName) {
+	public function __construct($routePath, $controllerName, $actionName, $namespaces) {
 		$this->setRoutePath($routePath);
 		$this->setControllerName($controllerName);
 		$this->setActionName($actionName);
+		$this->setNamespaces($namespaces);
 	}
 
 	public function getRoutePath() {
@@ -42,6 +44,17 @@ class Route {
 			throw new InvalidArgumentException('Invalid action name');
 		}
 		$this->actionName = $value; 
+	}
+
+	public function getNamespaces() {
+		return $this->$namespaces;
+	}
+
+	public function setNamespaces($value) {
+		if (!is_array($value)) {
+			throw new InvalidArgumentException('Invalid namespaces');
+		}
+		$this->namespaces = $value; 
 	}
 }
 

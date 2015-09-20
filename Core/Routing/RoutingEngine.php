@@ -7,11 +7,7 @@ class RoutingEngine {
 		$this->routes = array();
 	}
 
-	public function registerRoute($route) {
-		if(get_class($route) != 'Route') {
-			throw new InvalidArgumentException('Invalid route');
-		}
-
+	public function registerRoute(Route $route) {
 		array_push($this->routes, $route);
 	}
 

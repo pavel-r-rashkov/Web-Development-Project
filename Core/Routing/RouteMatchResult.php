@@ -26,10 +26,7 @@ class RouteMatchResult {
 		return $this->matchedRoute;
 	}
 
-	private function setMatchedRoute($value) {
-		if (get_class($value) != 'Route') {
-			throw new InvalidArgumentException('Invalid matched route');
-		}
+	private function setMatchedRoute(Route $value) {
 		$this->matchedRoute = $value;
 	}
 
@@ -42,6 +39,30 @@ class RouteMatchResult {
 			throw new InvalidArgumentException('Invalid route parameters');
 		}
 		$this->routeParams = $value;
+	}
+
+	public function extractControllerName() {
+		$controllerName = $this->getMatchedRoute()->getControllerName();
+		
+		if(self::strStartsWith($controllerName, '{') && self::strEndsWith($controllerName, '}')) {
+			$paramKey = substr($controllerName, 1, strlen($controllerName) - 2);
+			if (array_key_exists($paramKey, $this->routeParams)) {
+				return $this->routeParams[$paramKey];
+			} else {
+				throw new Exception('Invalid route register parameter');
+			}
+		}
+		return $controllerName;
+	}
+
+	private static function strStartsWith($haystack, $needle)
+	{
+	    return strpos($haystack, $needle) === 0;
+	}
+
+	private static function strEndsWith($haystack, $needle)
+	{
+	    return strrpos($haystack, $needle) + strlen($needle) === strlen($haystack);
 	}
 }
 
