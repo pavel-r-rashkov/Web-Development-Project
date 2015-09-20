@@ -1,5 +1,7 @@
 <?php 
 
+namespace Routing;
+
 class RouteMatchResult {
 	private $requestRoutePath;
 	private $matchedRoute;
@@ -43,16 +45,37 @@ class RouteMatchResult {
 
 	public function extractControllerName() {
 		$controllerName = $this->getMatchedRoute()->getControllerName();
+		return $this->extractObjectName($controllerName);
+	}
+
+	public function extractActionName() {
+		$actionName = $this->getMatchedRoute()->getActionName();
+		return $this->extractObjectName($actionName);
+	}
+
+	public function extractActionParams() {
+		$actionParams = $this->getRouteParams();
 		
-		if(self::strStartsWith($controllerName, '{') && self::strEndsWith($controllerName, '}')) {
-			$paramKey = substr($controllerName, 1, strlen($controllerName) - 2);
+		foreach ($actionParams as $key => $value) {
+			$param = '{' . $key . '}';
+			if ($this->getMatchedRoute()->getActionName() == $param ||
+					$this->getMatchedRoute()->getControllerName() == $param) {
+				unset($actionParams[$key]);
+			}
+		}
+		return $actionParams;
+	}
+
+	private function extractObjectName($object) {
+		if(self::strStartsWith($object, '{') && self::strEndsWith($object, '}')) {
+			$paramKey = substr($object, 1, strlen($object) - 2);
 			if (array_key_exists($paramKey, $this->routeParams)) {
 				return $this->routeParams[$paramKey];
 			} else {
 				throw new Exception('Invalid route register parameter');
 			}
 		}
-		return $controllerName;
+		return $object;
 	}
 
 	private static function strStartsWith($haystack, $needle)

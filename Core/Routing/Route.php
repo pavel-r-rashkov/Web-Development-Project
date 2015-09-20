@@ -1,5 +1,7 @@
 <?php
 
+namespace Routing;
+
 class Route {
 	private $routePath;
 	private $controllerName;

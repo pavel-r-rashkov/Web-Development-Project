@@ -9,10 +9,10 @@ class AnnotationHelper {
 		$this->annotationFactory = $annotationFactory;
 	}
 
-	public function ExtractAnnotations($classFullName, $methodName) {
+	public function extractAnnotations($classFullName, $methodName) {
 		$reflection = new ReflectionClass($classFullName);
 		$methodDoc = $reflection->getMethod($methodName)->getDocComment();
-		$annotationData = self::GetAnnotationsNamesParams($methodDoc);
+		$annotationData = self::getAnnotationsNamesParams($methodDoc);
 
 		$annotations = array();
 		foreach ($annotationData as $key => $annotation) {
@@ -25,7 +25,7 @@ class AnnotationHelper {
 		return $annotations;
 	}
 
-	private function GetAnnotationsNamesParams($objectDoc) {
+	private function getAnnotationsNamesParams($objectDoc) {
 		preg_match_all(self::EXTRACT_ANNOTATIONS_PATTERN, $objectDoc, $matches);
 		$annotationCount = count($matches[1]);
 		$annotationsData = array();

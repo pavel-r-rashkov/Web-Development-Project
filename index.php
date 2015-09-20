@@ -10,27 +10,39 @@ require_once(__DIR__ . '/Core/Annotations/BaseAnnotation.php');
 require_once(__DIR__ . '/Core/Annotations/RouteAnnotation.php');
 require_once(__DIR__ . '/Core/Annotations/AnnotationHelper.php');
 require_once(__DIR__ . '/Core/Annotations/AnnotationFactory.php');
+require_once(__DIR__ . '/Core/ActionExecution/ActionInvoker.php');
 
-$a = new Route('/asdf/{aaa}/3/{bbb}', '{aaa}', '{bbb}', array('Controllers'));
+use Routing\RoutingEngine;
+use Routing\Route;
+use Routing\RouteMatchResult;
+
+$a = new Route('/asdf/{aaa}/3/{bbb}/{g}', 'DefaultController', 'hello', array('Controllers'));
 $b = new Route('/a/{aaa}/', 'gg', 'hh', array('Controllers'));
 $engine = new RoutingEngine();
 $engine->registerRoute($a);
 $engine->registerRoute($b);
 
-
-$routeResult = $engine->matchRoute('/asdf/yyy/3/zzz');
+$helper = new AnnotationHelper(new AnnotationFactory);
+$routeResult = $engine->matchRoute('/asdf/yyy/3/zzz/4');
 #var_dump($routeResult);
 
-
 $factory = new ControllerFactory();
+$controller = $factory->createController('DefaultController', array('Controllers'));
 
-#$controller = $factory->createController('DefaultController', array('Controllers'));
+$invoker = new ActionInvoker(
+	$controller, 
+	$routeResult->extractActionName(), 
+	$routeResult->extractActionParams(),
+	$helper->extractAnnotations(get_class($controller), $routeResult->extractActionName()));
+$actionArgs = $invoker->processBinding();
+$invoker->executeAction($actionArgs);
+
+
+die;
 
 
 
-$helper = new AnnotationHelper(new AnnotationFactory);
-$annotations = $helper->ExtractAnnotations('Controllers\DefaultController', 'hello');
-var_dump($annotations);
+$annotations = $helper->extractAnnotations('Controllers\DefaultController', 'hello');
 
 
 // function getSubclassesOf($parent) {

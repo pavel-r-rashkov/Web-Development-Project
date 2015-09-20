@@ -1,5 +1,7 @@
 <?php 
 
+namespace Routing;
+
 class RoutingEngine {
 	private $routes;
 
