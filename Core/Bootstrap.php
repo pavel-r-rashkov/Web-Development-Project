@@ -33,4 +33,7 @@ require_once(__DIR__ . '/Contracts/IContainer.php');
 require_once(__DIR__ . '/Container.php');
 require_once(__DIR__ . '/BindOptions.php');
 
+require_once(dirname(__DIR__) . '/ApplicationConfig.php');
+require_once(__DIR__ . '/ApplicationManager.php');
+
 ?>

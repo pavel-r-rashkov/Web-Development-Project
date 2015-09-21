@@ -24,12 +24,25 @@ use ResultExecution\ViewEngine;
 use Contracts\IContainer;
 use Core\Container;
 use Core\BindOptions;
+use Core\RequestPipeline;
+use Core\ApplicationManager;
+use Config\ApplicationConfig;
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT_PATH', basename(dirname(dirname(__FILE__))) . DS);
 define('ROOT', dirname(dirname(__FILE__)) . DS);
 
+$appManager = ApplicationManager::getInstance();
 
+ApplicationConfig::initializeComponents($appManager);
+ApplicationConfig::routeConfig($appManager->getRoutingEngine());
+ApplicationConfig::registerBindings($appManager->getContainer());
+
+RequestPipeline::execute();
+die;
+
+
+//======================================================
 // class Te {
 // 	private $dep;
 
@@ -76,10 +89,9 @@ $invoker = new ActionInvoker(
 $actionArgs = $invoker->processBinding();
 $invoker->processAnnotations();
 $actionResult = $invoker->executeAction($actionArgs);
-#var_dump();
+
 $resultHandler = new ActionResultHandler(new ViewEngine());
 $resultHandler->handleResult($actionResult);
-// ===================================
-die;
+//======================================================
 
 ?>
