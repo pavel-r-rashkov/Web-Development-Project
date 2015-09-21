@@ -1,5 +1,7 @@
 <?php
 
+namespace Annotations;
+
 class AnnotationHelper {
 	const EXTRACT_ANNOTATIONS_PATTERN = '/@([^\(]+?)\(([^)]*?)\)/i';
 	const ANNOTATION_PARAM_DELIMITER = ', ';
@@ -10,7 +12,7 @@ class AnnotationHelper {
 	}
 
 	public function extractAnnotations($classFullName, $methodName) {
-		$reflection = new ReflectionClass($classFullName);
+		$reflection = new \ReflectionClass($classFullName);
 		$methodDoc = $reflection->getMethod($methodName)->getDocComment();
 		$annotationData = self::getAnnotationsNamesParams($methodDoc);
 

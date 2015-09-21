@@ -1,5 +1,7 @@
 <?php
 
+namespace Annotations;
+
 class RouteAnnotation extends BaseAnnotation {
 	private $routePath;
 

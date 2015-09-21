@@ -1,5 +1,7 @@
 <?php
 
+namespace Annotations;
+
 abstract class HttpMethod {
 	const GET = 'GET';
 	const POST = 'POST';

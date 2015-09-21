@@ -1,7 +1,7 @@
 <?php
 
 namespace Controllers;
-use Routing\RoutingEngine;
+use ResultExecution\ActionResults\PartialViewResult;
 
 class DefaultController {
 
@@ -10,15 +10,10 @@ class DefaultController {
 	}	
 
 	/** 
-	*@Route(gggg/bbb) 
-	*@Route(daaa) 
+	*@Route(gggg/bbb)
 	*/
 	public function hello(BindingModel $d, $g) {
-		echo 'Hello from controller! ';
-		echo "\nModel\n";
-		echo $d->getAaa();
-		echo "\n";
-		echo $d->getBbb();
+		return new PartialViewResult($d, 'Views/SampleView.php');
 	}
 }
 

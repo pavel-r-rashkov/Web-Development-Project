@@ -1,6 +1,8 @@
 <?php
 
-class HttpPost extends HttpMethodAnnotation {
+namespace Annotations;
+
+class HttpPostAnnotation extends HttpMethodAnnotation {
 	public function __construct() {
 		parent::__construct(HttpMethod::POST);
 	}

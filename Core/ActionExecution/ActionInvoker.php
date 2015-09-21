@@ -66,7 +66,9 @@ class ActionInvoker {
 	}
 
 	public function processAnnotations() {
-		$this->assertHttpMethod();
+		$this->processAuthenticationAnnotations();
+		$this->processAuthorizeAnnotations();
+		$this->processActionFilterAnnotations();
 	}
 
 	public function executeAction($actionArgs) {
@@ -76,13 +78,33 @@ class ActionInvoker {
 		return $actionResult;
 	}
 
+	private function processAuthenticationAnnotations() {
+		foreach ($this->annotations as $annotation) {
+			if (is_subclass_of($annotation, 'Annotations\AuthenticationFilterAnnotation')) {
+				$annotation->authenticate();
+			}
+		}
+	}
+
+	private function processAuthorizeAnnotations() {
+		foreach ($this->annotations as $annotation) {
+			if (is_subclass_of($annotation, 'Annotations\AuthorizationFilterAnnotation')) {
+				$annotation->authorize();
+			}
+		}
+	}
+
+	private function processActionFilterAnnotations() {
+		foreach ($this->annotations as $annotation) {
+			if (is_subclass_of($annotation, 'Annotations\ActionFilterAnnotation')) {
+				$annotation->filterAction();
+			}
+		}
+	}
+
 	private static function strStartsWith($haystack, $needle)
 	{
 	    return strpos($haystack, $needle) === 0;
-	}
-
-	private function assertHttpMethod() {
-		
 	}
 }
 
