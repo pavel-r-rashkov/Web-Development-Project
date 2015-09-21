@@ -1,5 +1,6 @@
 <?php
-
+use ResultExecution\ViewEngine;
+//ViewEngine::modelType($model, '');
 ?>
 
 <div>Content -</div>

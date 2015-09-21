@@ -21,6 +21,10 @@ use Annotations\HttpPostAnnotation;
 use ResultExecution\ActionResultHandler;
 use ResultExecution\ViewEngine;
 
+define('DS', DIRECTORY_SEPARATOR);
+define('ROOT_PATH', basename(dirname(dirname(__FILE__))) . DS);
+define('ROOT', dirname(dirname(__FILE__)) . DS);
+
 $route = RequestDispatcher::getRoute();
 
 $a = new Route('asdf/{aaa}/3/{bbb}/{g}', 'DefaultController', 'hello', array('Controllers'));
