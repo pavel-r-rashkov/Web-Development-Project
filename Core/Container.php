@@ -25,6 +25,12 @@ class Container implements IContainer {
 
 		$constructorArgs = array();
 		$resolver = $this->bindings[$dependency]['resolveWith'];
+		$bindOptions = $this->bindings[$dependency]['options'];
+		if($bindOptions == BindOptions::SINGLETON &&
+			array_key_exists($resolver, $this->instanceCache)) {
+			return $this->instanceCache[$resolver];
+		}
+
 		$reflection = new \ReflectionClass($resolver);
 		$method = $reflection->getMethod('__construct');
 		$params = $method->getParameters();
@@ -35,7 +41,13 @@ class Container implements IContainer {
 			array_push($constructorArgs, $instance);
 		}
 
-		return $reflection->newInstanceArgs($constructorArgs);
+		$instance = $reflection->newInstanceArgs($constructorArgs);
+		if($bindOptions == BindOptions::SINGLETON &&
+			!array_key_exists($resolver, $this->instanceCache)) {
+			$this->instanceCache[$resolver] = $instance;
+		}
+
+		return $instance; 
 	}
 }
 

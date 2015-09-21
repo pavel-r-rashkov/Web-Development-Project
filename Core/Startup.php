@@ -40,11 +40,13 @@ define('ROOT', dirname(dirname(__FILE__)) . DS);
 
 
 // $cont = new Container();
-// $cont->bind('Te', 'Te', BindOptions::NONE);
+// $cont->bind('Te', 'Te', BindOptions::SINGLETON);
 // $cont->bind('Contracts\IContainer', 'Core\Container', BindOptions::NONE);
 // $te = $cont->resolve('Te');
-// var_dump($te);
+// $te2 = $cont->resolve('Te');
 
+// var_dump($cont);
+// die;
 // $reflection = new ReflectionClass('Te');
 // $method = $reflection->getMethod('test');
 // $params = $method->getParameters();
