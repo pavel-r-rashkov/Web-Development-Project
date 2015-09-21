@@ -20,6 +20,7 @@ class RoutingEngine {
 				return new RouteMatchResult($routePath, $route, $routeParams);
 			}
 		}
+		throw new \Exception('Route not found');
 	}
 
 	private function createRegex($routePath) {

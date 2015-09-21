@@ -25,7 +25,7 @@ class ViewEngine {
 
 	private function findViewLayout($viewPath) {
 		$currentPath = dirname($viewPath);
-		$stopper = dirname(ROOT . self::VIEWS_ROOT_DIR);
+		$stopper = ROOT;
 		$layout;
 
 		while($currentPath != $stopper) {

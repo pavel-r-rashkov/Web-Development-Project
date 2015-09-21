@@ -21,9 +21,36 @@ use Annotations\HttpPostAnnotation;
 use ResultExecution\ActionResultHandler;
 use ResultExecution\ViewEngine;
 
+use Contracts\IContainer;
+use Core\Container;
+use Core\BindOptions;
+
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT_PATH', basename(dirname(dirname(__FILE__))) . DS);
 define('ROOT', dirname(dirname(__FILE__)) . DS);
+
+
+// class Te {
+// 	private $dep;
+
+// 	function __construct(IContainer $dep) {
+// 		$this->dep = $dep;
+// 	}
+// }
+
+
+// $cont = new Container();
+// $cont->bind('Te', 'Te', BindOptions::NONE);
+// $cont->bind('Contracts\IContainer', 'Core\Container', BindOptions::NONE);
+// $te = $cont->resolve('Te');
+// var_dump($te);
+
+// $reflection = new ReflectionClass('Te');
+// $method = $reflection->getMethod('test');
+// $params = $method->getParameters();
+// var_dump($params[0]->getClass());
+// #test('ViewEngine');
+
 
 $route = RequestDispatcher::getRoute();
 
