@@ -11,7 +11,7 @@ class ViewEngine {
 		
 		if ($viewResult instanceof ViewResult) {
 			$view = $viewResult->getViewPath();
-			$template = 'Views/Layout.php';
+			$template = '../Views/Layout.php';
 			include_once($template);
 		} else if ($viewResult instanceof PartialViewResult) {
 			include_once($viewResult->getViewPath());

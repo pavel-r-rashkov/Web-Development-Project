@@ -16,7 +16,7 @@ class DefaultController {
 	*/
 	public function hello(BindingModel $d, $g) {
 		#return new ContentResult("Some content");
-		return new ViewResult($d, 'Views/SampleView.php');
+		return new ViewResult($d, '../Views/SampleView.php');
 	}
 }
 

@@ -1,32 +1,32 @@
 <?php
 
-require_once(__DIR__ . '/Core/Routing/RequestDispatcher.php');
-require_once(__DIR__ . '/Core/Routing/RoutingEngine.php');
-require_once(__DIR__ . '/Core/Routing/Route.php');
-require_once(__DIR__ . '/Core/Routing/RouteMatchResult.php');
-require_once(__DIR__ . '/Core/Controllers/DefaultController.php');
-require_once(__DIR__ . '/Core/Controllers/ControllerFactory.php');
+require_once(__DIR__ . '/Routing/RequestDispatcher.php');
+require_once(__DIR__ . '/Routing/RoutingEngine.php');
+require_once(__DIR__ . '/Routing/Route.php');
+require_once(__DIR__ . '/Routing/RouteMatchResult.php');
+require_once(__DIR__ . '/Controllers/DefaultController.php');
+require_once(__DIR__ . '/Controllers/ControllerFactory.php');
 
-require_once(__DIR__ . '/Core/Annotations/BaseAnnotation.php');
-require_once(__DIR__ . '/Core/Annotations/ActionFilterAnnotation.php');
-require_once(__DIR__ . '/Core/Annotations/RouteAnnotation.php');
-require_once(__DIR__ . '/Core/Annotations/AnnotationHelper.php');
-require_once(__DIR__ . '/Core/Annotations/AnnotationFactory.php');
-require_once(__DIR__ . '/Core/Annotations/HttpMethod.php');
-require_once(__DIR__ . '/Core/Annotations/HttpMethodAnnotation.php');
-require_once(__DIR__ . '/Core/Annotations/HttpGetAnnotation.php');
-require_once(__DIR__ . '/Core/Annotations/HttpDeleteAnnotation.php');
-require_once(__DIR__ . '/Core/Annotations/HttpPostAnnotation.php');
-require_once(__DIR__ . '/Core/Annotations/HttpPutAnnotation.php');
+require_once(__DIR__ . '/Annotations/BaseAnnotation.php');
+require_once(__DIR__ . '/Annotations/ActionFilterAnnotation.php');
+require_once(__DIR__ . '/Annotations/RouteAnnotation.php');
+require_once(__DIR__ . '/Annotations/AnnotationHelper.php');
+require_once(__DIR__ . '/Annotations/AnnotationFactory.php');
+require_once(__DIR__ . '/Annotations/HttpMethod.php');
+require_once(__DIR__ . '/Annotations/HttpMethodAnnotation.php');
+require_once(__DIR__ . '/Annotations/HttpGetAnnotation.php');
+require_once(__DIR__ . '/Annotations/HttpDeleteAnnotation.php');
+require_once(__DIR__ . '/Annotations/HttpPostAnnotation.php');
+require_once(__DIR__ . '/Annotations/HttpPutAnnotation.php');
 
-require_once(__DIR__ . '/Core/ActionExecution/ActionInvoker.php');
+require_once(__DIR__ . '/ActionExecution/ActionInvoker.php');
 
-require_once(__DIR__ . '/Core/ResultExecution/ActionResultHandler.php');
-require_once(__DIR__ . '/Core/ResultExecution/ViewEngine.php');
-require_once(__DIR__ . '/Core/ResultExecution/ActionResults/BaseActionResult.php');
-require_once(__DIR__ . '/Core/ResultExecution/ActionResults/BaseViewResult.php');
-require_once(__DIR__ . '/Core/ResultExecution/ActionResults/PartialViewResult.php');
-require_once(__DIR__ . '/Core/ResultExecution/ActionResults/ViewResult.php');
-require_once(__DIR__ . '/Core/ResultExecution/ActionResults/ContentResult.php');
+require_once(__DIR__ . '/ResultExecution/ActionResultHandler.php');
+require_once(__DIR__ . '/ResultExecution/ViewEngine.php');
+require_once(__DIR__ . '/ResultExecution/ActionResults/BaseActionResult.php');
+require_once(__DIR__ . '/ResultExecution/ActionResults/BaseViewResult.php');
+require_once(__DIR__ . '/ResultExecution/ActionResults/PartialViewResult.php');
+require_once(__DIR__ . '/ResultExecution/ActionResults/ViewResult.php');
+require_once(__DIR__ . '/ResultExecution/ActionResults/ContentResult.php');
 
 ?>
