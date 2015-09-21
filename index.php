@@ -1,5 +1,6 @@
 <?php
 
+require_once(__DIR__ . '/Core/Routing/RequestDispatcher.php');
 require_once(__DIR__ . '/Core/Routing/RoutingEngine.php');
 require_once(__DIR__ . '/Core/Routing/Route.php');
 require_once(__DIR__ . '/Core/Routing/RouteMatchResult.php');
@@ -26,10 +27,12 @@ require_once(__DIR__ . '/Core/ResultExecution/ActionResults/BaseActionResult.php
 require_once(__DIR__ . '/Core/ResultExecution/ActionResults/BaseViewResult.php');
 require_once(__DIR__ . '/Core/ResultExecution/ActionResults/PartialViewResult.php');
 require_once(__DIR__ . '/Core/ResultExecution/ActionResults/ViewResult.php');
+require_once(__DIR__ . '/Core/ResultExecution/ActionResults/ContentResult.php');
 
 use Routing\RoutingEngine;
 use Routing\Route;
 use Routing\RouteMatchResult;
+use Routing\RequestDispatcher;
 
 use Annotations\ActionFilterAnnotation;
 use Annotations\AnnotationHelper;
@@ -44,22 +47,21 @@ use Annotations\HttpPostAnnotation;
 
 use ResultExecution\ActionResultHandler;
 use ResultExecution\ViewEngine;
-#use \Annotations;
 
-$a = new Route('/asdf/{aaa}/3/{bbb}/{g}', 'DefaultController', 'hello', array('Controllers'));
-$b = new Route('/a/{aaa}/', 'gg', 'hh', array('Controllers'));
+
+$route = RequestDispatcher::getRoute();
+
+$a = new Route('asdf/{aaa}/3/{bbb}/{g}', 'DefaultController', 'hello', array('Controllers'));
+$b = new Route('a/{aaa}/', 'gg', 'hh', array('Controllers'));
 $engine = new RoutingEngine();
 $engine->registerRoute($a);
 $engine->registerRoute($b);
 
-$helper = new AnnotationHelper(new AnnotationFactory);
-$routeResult = $engine->matchRoute('/asdf/yyy/3/zzz/4');
-#var_dump($routeResult);
-
+$routeResult = $engine->matchRoute($route);
 
 $factory = new ControllerFactory();
 $controller = $factory->createController('DefaultController', array('Controllers'));
-
+$helper = new AnnotationHelper(new AnnotationFactory);
 // ===================================
 $invoker = new ActionInvoker(
 	$controller, 

@@ -13,8 +13,6 @@ abstract class BaseViewResult extends BaseActionResult {
 		$this->viewPath = $viewPath;
 	}
 
-
-
 	public function getViewPath() {
 		return $this->viewPath;
 	}

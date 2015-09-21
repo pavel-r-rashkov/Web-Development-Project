@@ -2,6 +2,8 @@
 
 namespace Controllers;
 use ResultExecution\ActionResults\PartialViewResult;
+use ResultExecution\ActionResults\ViewResult;
+use ResultExecution\ActionResults\ContentResult;
 
 class DefaultController {
 
@@ -13,7 +15,8 @@ class DefaultController {
 	*@Route(gggg/bbb)
 	*/
 	public function hello(BindingModel $d, $g) {
-		return new PartialViewResult($d, 'Views/SampleView.php');
+		#return new ContentResult("Some content");
+		return new ViewResult($d, 'Views/SampleView.php');
 	}
 }
 
