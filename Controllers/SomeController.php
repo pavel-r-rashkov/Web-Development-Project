@@ -11,8 +11,13 @@ class SomeController extends DefaultController {
 	*@AuthorizeRole(SecondRole, FirstRole)
 	*/
 	public function someAction() {
-		return new ViewResult(null, 'SampleView.php');
+
+		return new ViewResult(new MyModel(), 'SampleView.php');
 	}
+}
+
+class MyModel {
+
 }
 
 ?>

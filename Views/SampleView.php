@@ -1,7 +1,7 @@
 <?php
 use Core\ResultExecution\ViewEngine;
 use Core\HtmlHelpers\Html;
-//ViewEngine::modelType($model, '');
+ViewEngine::validateModelType($model, '\Controllers\MyModel');
 ?>
 
 <div>================</div>

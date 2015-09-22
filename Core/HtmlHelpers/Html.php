@@ -1,6 +1,7 @@
 <?php
 
 namespace Core\HtmlHelpers;
+use Core\Utils;
 
 class Html {
 	public static function radio($name, $value, $checked = false) {
@@ -140,7 +141,7 @@ class Html {
 	}
 
 	public static function csrfToken() {
-		$token = '789';
+		$token = Utils::getToken(80);
 		setcookie('CSRF-TOKEN', $token, time() + 1800, '/');
 
 		$attributes = array(

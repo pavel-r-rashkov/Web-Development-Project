@@ -45,6 +45,7 @@ require_once(__DIR__ . '/HtmlHelpers/Html.php');
 require_once(__DIR__ . '/HtmlHelpers/Tag.php');
 
 require_once(__DIR__ . '/ApplicationManager.php');
+require_once(__DIR__ . '/Utils.php');
 require_once(dirname(__DIR__) . '/ApplicationConfig.php');
 
 require_once(dirname(__DIR__) . '/Controllers/SomeController.php');

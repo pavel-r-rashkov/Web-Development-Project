@@ -22,8 +22,10 @@ class ViewEngine {
 		}
 	}
 
-	public static function modelType($model, $type) {
-
+	public static function validateModelType($model, $type) {
+		if ($model != null && !($model instanceof $type)) {
+			throw new \Exception("This view is expecting {$type}, but " . get_class($model) . " is given");
+		}
 	}
 
 	private function findViewLayout($viewPath) {
