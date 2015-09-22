@@ -82,7 +82,7 @@ class ActionInvoker {
 
 	private function processAuthenticationAnnotations() {
 		foreach ($this->annotations as $annotation) {
-			if (is_subclass_of($annotation, 'Core\Annotations\AuthenticationFilterAnnotation')) {
+			if (is_subclass_of($annotation, 'Core\Annotations\AuthenticateAnnotation')) {
 				$annotation->authenticate();
 			}
 		}
@@ -90,7 +90,7 @@ class ActionInvoker {
 
 	private function processAuthorizeAnnotations() {
 		foreach ($this->annotations as $annotation) {
-			if (is_subclass_of($annotation, 'Core\Annotations\AuthorizationFilterAnnotation')) {
+			if (is_subclass_of($annotation, 'Core\Annotations\AuthorizeAnnotation')) {
 				$annotation->authorize();
 			}
 		}

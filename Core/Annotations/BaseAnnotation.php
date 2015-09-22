@@ -2,7 +2,7 @@
 
 namespace Core\Annotations;
 
-class BaseAnnotation {
+abstract class BaseAnnotation {
 	
 }
 

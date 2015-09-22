@@ -113,6 +113,20 @@ class Html {
 		$result = file_get_contents($url, false, $context);
 		return $result;
 	}
+
+	public static function ajaxForm($method, $action, $replaceTarget, $content = null) {
+		$attributes = array(
+				'method' => $method,
+				'action' => APP_ROOT_URL . $action,
+				'class' => 'data-ajax-form',
+				'data-replace-target' => $replaceTarget);
+
+		$tag = new Tag(
+			'form',
+			$attributes,
+			$content);
+		return $tag->getHtml();
+	}
 }
 
 ?>

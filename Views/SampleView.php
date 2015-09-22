@@ -23,5 +23,11 @@ use Core\HtmlHelpers\Html;
 <?php echo Html::select('category', 
 	array('3' => 'Cat 1', '4' => 'Cat dd')) ?>
 <div>================</div>
-<?php echo Html::renderRoute('test/test/5') ?>
+<?php //echo Html::renderRoute('test/test/5') ?>
+<div>================</div>
+
+<?php echo Html::ajaxForm('get', 'test/test/4', 'my-list', '<button type="submit">GO!</button>') ?>
+
+<div>================</div>
+<div id="my-list">REPLACE CONTENT</div>
 <div>================</div>
