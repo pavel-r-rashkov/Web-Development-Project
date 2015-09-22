@@ -17,7 +17,6 @@ class RequestPipeline {
 		$route = RequestDispatcher::getRoute();
 		$routeResult = $routingEngine->matchRoute($route);
 
-		// route result -> area 
 		$controllerName = $routeResult->extractControllerName();
 		$areaName = $routeResult->getMatchedRoute()->getArea();
 
@@ -33,7 +32,7 @@ class RequestPipeline {
 		$invoker->processAnnotations();
 		$actionResult = $invoker->executeAction($actionArgs);
 
-		$resultHandler = new ActionResultHandler($viewEngine);
+		$resultHandler = new ActionResultHandler($viewEngine, $areaName);
 		$resultHandler->handleResult($actionResult);
 	}
 }

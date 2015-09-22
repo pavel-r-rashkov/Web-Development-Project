@@ -7,15 +7,18 @@ use Core\ResultExecution\ActionResults\ViewResult;
 class ViewEngine {
 	const VIEWS_ROOT_DIR = 'Views'; // from config
 
-	public function renderViewResult($viewResult) {
+	public function renderViewResult($viewResult, $areaName) {
 		$model = $viewResult->getData();
-		
+		$view = ROOT . self::VIEWS_ROOT_DIR . DS . $viewResult->getViewPath();
+		if(!is_null($areaName)) {
+			$view = ROOT . 'Areas' . DS . $areaName . DS . self::VIEWS_ROOT_DIR . DS . $viewResult->getViewPath();
+		}
+
 		if ($viewResult instanceof ViewResult) {
-			$view = ROOT . self::VIEWS_ROOT_DIR . DS . $viewResult->getViewPath();
 			$template = $this->findViewLayout($view);
 			include_once(ROOT . $template);
 		} else if ($viewResult instanceof PartialViewResult) {
-			include_once($viewResult->getViewPath());
+			include_once($view);
 		}
 	}
 
@@ -38,7 +41,7 @@ class ViewEngine {
 			$currentPath = dirname($currentPath);
 		}
 
-		throw new Exception('Cannot find layout config.');
+		throw new \Exception('Cannot find layout config.');
 	}
 
 	// public static function view() {
