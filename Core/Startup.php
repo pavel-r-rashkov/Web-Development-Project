@@ -32,6 +32,8 @@ use Config\ApplicationConfig;
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT_PATH', basename(dirname(dirname(__FILE__))) . DS);
 define('ROOT', dirname(dirname(__FILE__)) . DS);
+define( 'ROOT_URL', 'http://' . $_SERVER['HTTP_HOST'] . DS);
+define('APP_ROOT_URL', ROOT_URL . ROOT_PATH);
 
 $appManager = ApplicationManager::getInstance();
 

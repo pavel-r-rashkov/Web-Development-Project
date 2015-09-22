@@ -23,3 +23,5 @@ use Core\HtmlHelpers\Html;
 <?php echo Html::select('category', 
 	array('3' => 'Cat 1', '4' => 'Cat dd')) ?>
 <div>================</div>
+<?php echo Html::renderRoute('test/test/5') ?>
+<div>================</div>
