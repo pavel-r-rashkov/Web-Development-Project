@@ -19,6 +19,20 @@ class Container implements IContainer {
 	}
 
 	public function resolve($dependency) {
+		$reflection = new \ReflectionClass($dependency);
+		$constructor = $reflection->getMethod('__construct');
+		$constructorParams = $constructor->getParameters();
+		
+		$constructorArgs = array();
+		foreach ($constructorParams as $param) {
+			$paramInstance = $this->get($param->getClass()->name);
+			array_push($constructorArgs, $paramInstance);
+		}
+
+		return $reflection->newInstanceArgs($constructorArgs);
+	}
+
+	private function get($dependency) {
 		if(!array_key_exists($dependency, $this->bindings)) {
 			throw new \Exception("Binding for {$dependency} is not defined");
 		}
@@ -37,7 +51,7 @@ class Container implements IContainer {
 		
 		foreach ($params as $param) {
 			$name = $param->getClass()->getName();
-			$instance = $this->resolve($name);
+			$instance = $this->get($name);
 			array_push($constructorArgs, $instance);
 		}
 

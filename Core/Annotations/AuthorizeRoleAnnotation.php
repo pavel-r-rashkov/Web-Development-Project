@@ -13,7 +13,7 @@ class AuthorizeRoleAnnotation extends AuthorizeAnnotation {
 
 	public function authorize() {
 		$container = ApplicationManager::getInstance()->getContainer();
-		$roleProvider = $container->resolve('Core/Contracts/IRoleProvider');
+		$roleProvider = $container->resolve('RoleProvider');
 		#$userId = $_SESSION['userId'];
 		$userRoles = $roleProvider->getUserRoles(5);
 

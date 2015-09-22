@@ -27,7 +27,7 @@ class ApplicationConfig {
 
 	public static function registerBindings($container) {
 		#$container->bind('Contracts\IContainer', 'Core\Container', BindOptions::NONE);
-		$container->bind('Core/Contracts/IRoleProvider', 'RoleProvider', BindOptions::SINGLETON);
+		$container->bind('Core\Contracts\IRoleProvider', 'RoleProvider', BindOptions::SINGLETON);
 	}
 }
 
