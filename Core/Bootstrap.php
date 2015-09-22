@@ -22,6 +22,7 @@ require_once(__DIR__ . '/Annotations/AuthenticateAnnotation.php');
 require_once(__DIR__ . '/Annotations/AuthenticateUserAnnotation.php');
 require_once(__DIR__ . '/Annotations/AuthorizeAnnotation.php');
 require_once(__DIR__ . '/Annotations/AuthorizeRoleAnnotation.php');
+require_once(__DIR__ . '/Annotations/ValidateAntiForgeryTokenAnnotation.php');
 
 require_once(__DIR__ . '/ActionExecution/ActionInvoker.php');
 

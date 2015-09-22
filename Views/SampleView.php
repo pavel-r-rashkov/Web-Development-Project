@@ -22,11 +22,15 @@ use Core\HtmlHelpers\Html;
 </br>
 <?php echo Html::select('category', 
 	array('3' => 'Cat 1', '4' => 'Cat dd')) ?>
+<?php echo Html::link('test/test/3', 'MyLink') ?>
 <div>================</div>
 <?php //echo Html::renderRoute('test/test/5') ?>
 <div>================</div>
 
-<?php echo Html::ajaxForm('get', 'test/test/4', 'my-list', '<button type="submit">GO!</button>') ?>
+<?php echo Html::ajaxForm('get',
+	'test/test/4', 
+	'my-list', 
+	Html::csrfToken() . '<button type="submit">GO!</button>') ?>
 
 <div>================</div>
 <div id="my-list">REPLACE CONTENT</div>

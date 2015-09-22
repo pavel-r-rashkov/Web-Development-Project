@@ -7,6 +7,9 @@ use Core\ResultExecution\ActionResults\ViewResult;
 use Core\ResultExecution\ActionResults\PartialViewResult;
 
 class AreaController extends DefaultController {
+	/**
+	*@ValidateAntiForgeryToken()
+	*/
 	public function someAction() {
 		return new PartialViewResult(null, 'AreaView.php');
 	}

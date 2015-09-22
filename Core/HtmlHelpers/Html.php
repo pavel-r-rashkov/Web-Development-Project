@@ -127,6 +127,33 @@ class Html {
 			$content);
 		return $tag->getHtml();
 	}
+
+	public static function link($route, $content) {
+		$attributes = array(
+				'href' => APP_ROOT_URL . $route);
+
+		$tag = new Tag(
+			'a',
+			$attributes,
+			$content);
+		return $tag->getHtml();
+	}
+
+	public static function csrfToken() {
+		$token = '789';
+		setcookie('CSRF-TOKEN', $token, time() + 1800, '/');
+
+		$attributes = array(
+				'type' => 'hidden',
+				'name' => 'csrfToken',
+				'value' => $token);
+
+		$tag = new Tag(
+			'input',
+			$attributes,
+			null);
+		return $tag->getHtml();
+	}
 }
 
 ?>
