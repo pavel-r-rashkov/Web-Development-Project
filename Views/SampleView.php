@@ -23,6 +23,7 @@ ViewEngine::validateModelType($model, '\Controllers\MyModel');
 <?php echo Html::select('category', 
 	array('3' => 'Cat 1', '4' => 'Cat dd')) ?>
 <?php echo Html::link('test/test/3', 'MyLink') ?>
+<?php echo Html::uploadFile('myfile') ?>
 <div>================</div>
 <?php //echo Html::renderRoute('test/test/5') ?>
 <div>================</div>

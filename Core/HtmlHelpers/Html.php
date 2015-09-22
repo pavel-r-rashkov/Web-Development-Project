@@ -140,6 +140,18 @@ class Html {
 		return $tag->getHtml();
 	}
 
+	public static function uploadFile($name) {
+		$attributes = array(
+				'name' => $name, 
+				'type' => 'file');
+
+		$tag = new Tag(
+			'input',
+			$attributes, 
+			null);
+		return $tag->getHtml();
+	}
+
 	public static function csrfToken() {
 		$token = Utils::getToken(80);
 		setcookie('CSRF-TOKEN', $token, time() + 1800, '/');
