@@ -12,7 +12,7 @@ class ActionResultHandler {
 	public function handleResult($actionResult) {
 		$this->populateResponseHeaders($actionResult);
 
-		if(is_subclass_of($actionResult, 'ResultExecution\ActionResults\BaseViewResult')) {
+		if(is_subclass_of($actionResult, 'Core\ResultExecution\ActionResults\BaseViewResult')) {
 			$this->viewEngine->renderViewResult($actionResult);
 		} else {
 			echo $actionResult->getData();

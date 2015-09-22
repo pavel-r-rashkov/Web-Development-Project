@@ -1,0 +1,103 @@
+<?php
+
+namespace Core\HtmlHelpers;
+
+class Html {
+	public static function radio($name, $value, $checked = false) {
+		$attributes = array(
+				'name' => $name, 
+				'value' => $value,
+				'type' => 'radio');
+
+		if ($checked) {
+			$attributes['checked'] = '';
+		}
+
+		$tag = new Tag(
+			'input',
+			$attributes, 
+			null);
+		return $tag->getHtml();
+	}
+
+	public static function checkbox($name, $value, $checked = false) {
+		$attributes = array(
+				'name' => $name, 
+				'value' => $value,
+				'type' => 'checkbox');
+
+		if ($checked) {
+			$attributes['checked'] = '';
+		}
+
+		$tag = new Tag(
+			'input',
+			$attributes, 
+			null);
+		return $tag->getHtml();
+	}
+
+	public static function inputField($name, $value, $placeholder = '') {
+		$attributes = array(
+				'name' => $name, 
+				'value' => $value,
+				'type' => 'text',
+				'placeholder' => $placeholder);
+
+		$tag = new Tag(
+			'input',
+			$attributes, 
+			null);
+		return $tag->getHtml();
+	}
+
+	public static function textarea($name, $content = null, $placeholder = '', $rows = 4, $cols = 50) {
+		$attributes = array(
+				'name' => $name, 
+				'placeholder' => $placeholder,
+				'rows' => $rows,
+				'cows' => $cols);
+
+		$tag = new Tag(
+			'textarea',
+			$attributes, 
+			$content);
+		return $tag->getHtml();
+	}
+
+	public static function password($name, $value, $placeholder = '') {
+		$attributes = array(
+				'type' => 'password',
+				'name' => $name, 
+				'placeholder' => $placeholder,
+				'value' => $value);
+
+		$tag = new Tag(
+			'input',
+			$attributes,
+			null);
+		return $tag->getHtml();
+	}
+
+	public static function select($name, $options) {
+		$attributes = array('name' => $name);
+		$optionsHtml = '';
+
+		foreach ($options as $key => $value) {
+			$option = new Tag(
+				'option', 
+				array('value' => $key), 
+				$value);
+
+			$optionsHtml = $optionsHtml . $option->getHtml();
+		}
+
+		$tag = new Tag(
+			'select',
+			$attributes,
+			$optionsHtml);
+		return $tag->getHtml();
+	}
+}
+
+?>

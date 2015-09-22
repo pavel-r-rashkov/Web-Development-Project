@@ -1,0 +1,1 @@
+<?php $layout = 'Views/Layout.php' ?>
