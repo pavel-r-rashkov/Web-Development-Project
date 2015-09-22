@@ -1,6 +1,6 @@
 <?php
 
-namespace Annotations;
+namespace Core\Annotations;
 
 abstract class ActionFilterAnnotation extends BaseAnnotation {
 	public abstract function filterAction();

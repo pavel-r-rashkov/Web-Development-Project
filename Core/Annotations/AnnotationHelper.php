@@ -1,6 +1,6 @@
 <?php
 
-namespace Annotations;
+namespace Core\Annotations;
 
 class AnnotationHelper {
 	const EXTRACT_ANNOTATIONS_PATTERN = '/@([^\(]+?)\(([^)]*?)\)/i';

@@ -1,9 +1,9 @@
 <?php
 
-namespace Controllers;
-use ResultExecution\ActionResults\PartialViewResult;
-use ResultExecution\ActionResults\ViewResult;
-use ResultExecution\ActionResults\ContentResult;
+namespace Core\Controllers;
+use Core\ResultExecution\ActionResults\PartialViewResult;
+use Core\ResultExecution\ActionResults\ViewResult;
+use Core\ResultExecution\ActionResults\ContentResult;
 
 class DefaultController {
 

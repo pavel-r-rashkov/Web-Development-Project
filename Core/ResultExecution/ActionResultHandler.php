@@ -1,6 +1,6 @@
 <?php
 
-namespace ResultExecution;
+namespace Core\ResultExecution;
 
 class ActionResultHandler {
 	private $viewEngine;

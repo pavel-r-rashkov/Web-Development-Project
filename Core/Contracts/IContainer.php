@@ -1,6 +1,6 @@
 <?php
 
-namespace Contracts;
+namespace Core\Contracts;
 
 interface IContainer {
 	public function bind($dependency, $resolveWith, $bindOptions);

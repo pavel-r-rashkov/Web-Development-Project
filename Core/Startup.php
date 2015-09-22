@@ -2,7 +2,7 @@
 
 include_once('Bootstrap.php');
 
-use Routing\RoutingEngine;
+use Core\Routing\RoutingEngine;
 use Routing\Route;
 use Routing\RouteMatchResult;
 use Routing\RequestDispatcher;
@@ -19,9 +19,10 @@ use Annotations\HttpPutAnnotation;
 use Annotations\HttpPostAnnotation;
 
 use ResultExecution\ActionResultHandler;
-use ResultExecution\ViewEngine;
+use Core\ResultExecution\ViewEngine;
 
-use Contracts\IContainer;
+use Core\Controllers\ControllerFactory;
+use Core\Contracts\IContainer;
 use Core\Container;
 use Core\BindOptions;
 use Core\RequestPipeline;
@@ -34,13 +35,27 @@ define('ROOT', dirname(dirname(__FILE__)) . DS);
 
 $appManager = ApplicationManager::getInstance();
 
+$appManager->setControllerFactory(new ControllerFactory());
+$appManager->setViewEngine(new ViewEngine());
+$appManager->setContainer(new Container());
+$appManager->setRoutingEngine(new RoutingEngine());
+
 ApplicationConfig::initializeComponents($appManager);
+ApplicationConfig::registerAreas($appManager);
 ApplicationConfig::routeConfig($appManager->getRoutingEngine());
 ApplicationConfig::registerBindings($appManager->getContainer());
 
 RequestPipeline::execute();
 die;
 
+// function getSubclassesOf($parent) {
+//     $result = array();
+//     foreach (get_declared_classes() as $class) {
+//         if (is_subclass_of($class, $parent))
+//             $result[] = $class;
+//     }
+//     return $result;
+// }
 
 //======================================================
 // class Te {
@@ -67,31 +82,31 @@ die;
 // #test('ViewEngine');
 
 
-$route = RequestDispatcher::getRoute();
+// $route = RequestDispatcher::getRoute();
 
-$a = new Route('asdf/{aaa}/3/{bbb}/{g}', 'DefaultController', 'hello', array('Controllers'));
-$b = new Route('a/{aaa}/', 'gg', 'hh', array('Controllers'));
-$engine = new RoutingEngine();
-$engine->registerRoute($a);
-$engine->registerRoute($b);
+// $a = new Route('asdf/{aaa}/3/{bbb}/{g}', 'DefaultController', 'hello');
+// $b = new Route('a/{aaa}/', 'gg', 'hh');
+// $engine = new RoutingEngine();
+// $engine->registerRoute($a);
+// $engine->registerRoute($b);
 
-$routeResult = $engine->matchRoute($route);
+// $routeResult = $engine->matchRoute($route);
 
-$factory = new ControllerFactory();
-$controller = $factory->createController('DefaultController', array('Controllers'));
-$helper = new AnnotationHelper(new AnnotationFactory);
-// ===================================
-$invoker = new ActionInvoker(
-	$controller, 
-	$routeResult->extractActionName(), 
-	$routeResult->extractActionParams(),
-	$helper->extractAnnotations(get_class($controller), $routeResult->extractActionName()));
-$actionArgs = $invoker->processBinding();
-$invoker->processAnnotations();
-$actionResult = $invoker->executeAction($actionArgs);
+// $factory = new ControllerFactory();
+// $controller = $factory->createController('DefaultController', array('Controllers'));
+// $helper = new AnnotationHelper(new AnnotationFactory);
+// // ===================================
+// $invoker = new ActionInvoker(
+// 	$controller, 
+// 	$routeResult->extractActionName(), 
+// 	$routeResult->extractActionParams(),
+// 	$helper->extractAnnotations(get_class($controller), $routeResult->extractActionName()));
+// $actionArgs = $invoker->processBinding();
+// $invoker->processAnnotations();
+// $actionResult = $invoker->executeAction($actionArgs);
 
-$resultHandler = new ActionResultHandler(new ViewEngine());
-$resultHandler->handleResult($actionResult);
+// $resultHandler = new ActionResultHandler(new ViewEngine());
+// $resultHandler->handleResult($actionResult);
 //======================================================
 
 ?>

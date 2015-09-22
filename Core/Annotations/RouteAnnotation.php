@@ -1,6 +1,6 @@
 <?php
 
-namespace Annotations;
+namespace Core\Annotations;
 
 class RouteAnnotation extends BaseAnnotation {
 	private $routePath;
@@ -15,7 +15,7 @@ class RouteAnnotation extends BaseAnnotation {
 
 	private function setRoutePath($value) {
 		if (!is_string($value)) {
-			throw new InvalidArgumentException('Invalid route path');
+			throw new \InvalidArgumentException('Invalid route path');
 		}
 		$this->routePath = $value;
 	}

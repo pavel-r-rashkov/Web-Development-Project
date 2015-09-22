@@ -1,6 +1,6 @@
 <?php
 
-namespace ResultExecution\ActionResults;
+namespace Core\ResultExecution\ActionResults;
 
 class ContentResult extends BaseActionResult {
 	public function __construct($data) {

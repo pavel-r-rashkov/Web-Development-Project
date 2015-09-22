@@ -1,6 +1,7 @@
 <?php 
 
-namespace Routing;
+namespace Core\Routing;
+use Core\ApplicationManager;
 
 class RoutingEngine {
 	private $routes;
@@ -10,6 +11,11 @@ class RoutingEngine {
 	}
 
 	public function registerRoute(Route $route) {
+		$area = $route->getArea();
+		$areas = ApplicationManager::getInstance()->getAreas();
+		if (!is_null($area) && !in_array($area, $areas)) {
+			throw new \Exception("Area with name {$area} is not registered");
+		}
 		array_push($this->routes, $route);
 	}
 

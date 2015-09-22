@@ -1,6 +1,6 @@
 <?php
 
-namespace Routing;
+namespace Core\Routing;
 
 class RequestDispatcher {
 	public static function getRoute() {	

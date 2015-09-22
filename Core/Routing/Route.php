@@ -1,18 +1,18 @@
 <?php
 
-namespace Routing;
+namespace Core\Routing;
 
 class Route {
 	private $routePath;
 	private $controllerName;
 	private $actionName;
-	private $namespaces;
+	private $area;
 
-	public function __construct($routePath, $controllerName, $actionName, $namespaces) {
+	public function __construct($routePath, $controllerName, $actionName, $area = null) {
 		$this->setRoutePath($routePath);
 		$this->setControllerName($controllerName);
 		$this->setActionName($actionName);
-		$this->setNamespaces($namespaces);
+		$this->setArea($area);
 	}
 
 	public function getRoutePath() {
@@ -48,15 +48,12 @@ class Route {
 		$this->actionName = $value; 
 	}
 
-	public function getNamespaces() {
-		return $this->$namespaces;
+	public function getArea() {
+		return $this->area;
 	}
 
-	public function setNamespaces($value) {
-		if (!is_array($value)) {
-			throw new InvalidArgumentException('Invalid namespaces');
-		}
-		$this->namespaces = $value; 
+	public function setArea($value) {
+		$this->area = $value; 
 	}
 }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Annotations;
+namespace Core\Annotations;
 
 abstract class HttpMethod {
 	const GET = 'GET';

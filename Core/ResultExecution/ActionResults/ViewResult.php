@@ -1,6 +1,6 @@
 <?php
 
-namespace ResultExecution\ActionResults;
+namespace Core\ResultExecution\ActionResults;
 
 class ViewResult extends BaseViewResult {
 	public function __construct($model, $viewPath) {

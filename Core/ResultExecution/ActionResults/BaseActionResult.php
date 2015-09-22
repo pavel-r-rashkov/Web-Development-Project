@@ -1,6 +1,6 @@
 <?php
 
-namespace ResultExecution\ActionResults;
+namespace Core\ResultExecution\ActionResults;
 
 abstract class BaseActionResult {
 	private $headers;

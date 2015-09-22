@@ -32,8 +32,12 @@ require_once(__DIR__ . '/ResultExecution/ActionResults/ContentResult.php');
 require_once(__DIR__ . '/Contracts/IContainer.php');
 require_once(__DIR__ . '/Container.php');
 require_once(__DIR__ . '/BindOptions.php');
+require_once(__DIR__ . '/RequestPipeline.php');
 
 require_once(dirname(__DIR__) . '/ApplicationConfig.php');
 require_once(__DIR__ . '/ApplicationManager.php');
+
+require_once(dirname(__DIR__) . '/Controllers/SomeController.php');
+require_once(dirname(__DIR__) . '/Areas/TestArea/Controllers/AreaController.php');
 
 ?>

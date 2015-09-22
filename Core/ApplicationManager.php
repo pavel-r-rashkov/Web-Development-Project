@@ -8,8 +8,10 @@ class ApplicationManager {
 	private $viewEngine;
 	private $container;
 	private $routingEngine;
+	private $areas;
 
 	private function __construct() {
+		$this->areas = array();
 	}
 
 	public static function getInstance() {
@@ -48,7 +50,18 @@ class ApplicationManager {
 	}
 
 	public function setRoutingEngine($value) {
-		$routingEngine = $value;
+		$this->routingEngine = $value;
+	}
+
+	public function registerArea($areaName) {
+		if (in_array($areaName, $this->areas)) {
+			throw new Exception('Area with this name already registered.');
+		}
+		array_push($this->areas, $areaName);
+	}
+
+	public function getAreas() {
+		return $this->areas;
 	}
 }
 

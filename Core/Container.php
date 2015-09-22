@@ -1,7 +1,7 @@
 <?php
 
 namespace Core;
-use Contracts\IContainer;
+use Core\Contracts\IContainer;
 
 class Container implements IContainer {
 	private $bindings;
@@ -23,7 +23,6 @@ class Container implements IContainer {
 			throw new \Exception("Binding for {$dependency} is not defined");
 		}
 
-		$constructorArgs = array();
 		$resolver = $this->bindings[$dependency]['resolveWith'];
 		$bindOptions = $this->bindings[$dependency]['options'];
 		if($bindOptions == BindOptions::SINGLETON &&
@@ -34,6 +33,7 @@ class Container implements IContainer {
 		$reflection = new \ReflectionClass($resolver);
 		$method = $reflection->getMethod('__construct');
 		$params = $method->getParameters();
+		$constructorArgs = array();
 		
 		foreach ($params as $param) {
 			$name = $param->getClass()->getName();

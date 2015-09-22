@@ -1,16 +1,19 @@
 <?php
 
+namespace Core\Controllers;
+
 class ControllerFactory {
-	public function createController($controllerName, $namespaces) {
-		$class = $namespaces[0] . '\\' . $controllerName;
-		
-		foreach ($namespaces as $namespace) {
-			if(class_exists($class)) {
-				return new $class();
-			}	
+	public function createController($controllerName, $area) {
+		if (is_null($area)) {
+			$class = 'Controllers\\' . $controllerName;	
+		} else {
+			$class = 'Areas\\' . $area . '\\Controllers\\' . $controllerName;
 		}
 
-		throw new InvalidArgumentException('No controllers matching this name are found.');
+		if(class_exists($class)) {
+			return new $class();
+		}
+		throw new \InvalidArgumentException('No controllers matching this name are found.');
 	}
 }
 

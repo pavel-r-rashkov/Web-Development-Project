@@ -1,5 +1,7 @@
 <?php
 
+namespace Core\ActionExecution;
+
 class ActionInvoker {
 	private $controller;
 	private $actionName;
@@ -14,7 +16,7 @@ class ActionInvoker {
 	}
 
 	public function processBinding() {
-		$reflection = new ReflectionClass($this->controller);
+		$reflection = new \ReflectionClass($this->controller);
 		$action = $reflection->getMethod($this->actionName);
 		$params = $action->getParameters();
 		$actionArgs = array();
@@ -72,7 +74,7 @@ class ActionInvoker {
 	}
 
 	public function executeAction($actionArgs) {
-		$reflection = new ReflectionClass($this->controller);
+		$reflection = new \ReflectionClass($this->controller);
 		$action = $reflection->getMethod($this->actionName);
 		$actionResult = $action->invokeArgs($this->controller, $actionArgs);
 		return $actionResult;
@@ -80,7 +82,7 @@ class ActionInvoker {
 
 	private function processAuthenticationAnnotations() {
 		foreach ($this->annotations as $annotation) {
-			if (is_subclass_of($annotation, 'Annotations\AuthenticationFilterAnnotation')) {
+			if (is_subclass_of($annotation, 'Core\Annotations\AuthenticationFilterAnnotation')) {
 				$annotation->authenticate();
 			}
 		}
@@ -88,7 +90,7 @@ class ActionInvoker {
 
 	private function processAuthorizeAnnotations() {
 		foreach ($this->annotations as $annotation) {
-			if (is_subclass_of($annotation, 'Annotations\AuthorizationFilterAnnotation')) {
+			if (is_subclass_of($annotation, 'Core\Annotations\AuthorizationFilterAnnotation')) {
 				$annotation->authorize();
 			}
 		}
@@ -96,7 +98,7 @@ class ActionInvoker {
 
 	private function processActionFilterAnnotations() {
 		foreach ($this->annotations as $annotation) {
-			if (is_subclass_of($annotation, 'Annotations\ActionFilterAnnotation')) {
+			if (is_subclass_of($annotation, 'Core\Annotations\ActionFilterAnnotation')) {
 				$annotation->filterAction();
 			}
 		}

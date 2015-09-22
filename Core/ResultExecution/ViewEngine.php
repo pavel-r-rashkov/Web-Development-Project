@@ -1,8 +1,8 @@
 <?php
 
-namespace ResultExecution;
-use ResultExecution\ActionResults\PartialViewResult;
-use ResultExecution\ActionResults\ViewResult;
+namespace Core\ResultExecution;
+use Core\ResultExecution\ActionResults\PartialViewResult;
+use Core\ResultExecution\ActionResults\ViewResult;
 
 class ViewEngine {
 	const VIEWS_ROOT_DIR = 'Views'; // from config

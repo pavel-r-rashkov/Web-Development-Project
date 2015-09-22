@@ -1,6 +1,11 @@
 <?php
 
 namespace Core;
+use Core\Routing\RequestDispatcher;
+use Core\Annotations\AnnotationHelper;
+use Core\Annotations\AnnotationFactory;
+use Core\ActionExecution\ActionInvoker;
+use Core\ResultExecution\ActionResultHandler;
 
 class RequestPipeline {
 	public static function execute() {
@@ -14,8 +19,9 @@ class RequestPipeline {
 
 		// route result -> area 
 		$controllerName = $routeResult->extractControllerName();
-																				// change to area
-		$controller = $controllerFactory->createController($controllerName, array('Controllers')); 
+		$areaName = $routeResult->getMatchedRoute()->getArea();
+
+		$controller = $controllerFactory->createController($controllerName, $areaName); 
 		$helper = new AnnotationHelper(new AnnotationFactory);
 
 		$invoker = new ActionInvoker(
