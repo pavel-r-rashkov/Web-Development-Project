@@ -2,8 +2,9 @@
 
 namespace Core\Controllers;
 use Core\ApplicationManager;
+use Core\Contracts\IControllerFactory;
 
-class ControllerFactory {
+class ControllerFactory implements IControllerFactory {
 	public function createController($controllerName, $area) {
 		if (is_null($area)) {
 			$class = 'Controllers\\' . $controllerName;	
@@ -11,7 +12,7 @@ class ControllerFactory {
 			$class = 'Areas\\' . $area . '\\Controllers\\' . $controllerName;
 		}
 
-		if(class_exists($class)) {
+		if (class_exists($class)) {
 			$container = ApplicationManager::getInstance()->getContainer();
 			return $container->resolve($class);
 			// $reflection = new \ReflectionClass($class);

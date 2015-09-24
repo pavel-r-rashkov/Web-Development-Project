@@ -5,15 +5,16 @@ use Core\ApplicationManager;
 use Core\Annotations\AnnotationHelper;
 use Core\Annotations\AnnotationFactory;
 use Core\Annotations\RouteAnnotation;
+use Core\Contracts\IRoutingEngine;
 
-class RoutingEngine {
+class RoutingEngine implements IRoutingEngine {
 	private $routes;
 
 	public function __construct() {
 		$this->routes = array();
 	}
 
-	public function registerRoute(Route $route) {
+	public function registerRoute($route) {
 		$area = $route->getArea();
 		$areas = ApplicationManager::getInstance()->getAreas();
 		if (!is_null($area) && !in_array($area, $areas)) {

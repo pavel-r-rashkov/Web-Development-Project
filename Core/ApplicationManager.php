@@ -1,6 +1,10 @@
 <?php
 
 namespace Core;
+use Core\Contracts\IControllerFactory;
+use Core\Contracts\IViewEngine;
+use Core\Contracts\IRoutingEngine;
+use Core\Contracts\IContainer;
 
 class ApplicationManager {
 	private static $instance;
@@ -25,7 +29,7 @@ class ApplicationManager {
 		return $this->controllerFactory;
 	}
 
-	public function setControllerFactory($value) {
+	public function setControllerFactory(IControllerFactory $value) {
 		$this->controllerFactory = $value;
 	}
 
@@ -33,7 +37,7 @@ class ApplicationManager {
 		return $this->viewEngine;
 	}
 
-	public function setViewEngine($value) {
+	public function setViewEngine(IViewEngine $value) {
 		$this->viewEngine = $value;
 	}
 
@@ -41,7 +45,7 @@ class ApplicationManager {
 		return $this->container;
 	}
 
-	public function setContainer($value) {
+	public function setContainer(IContainer $value) {
 		$this->container = $value;
 	}
 
@@ -49,7 +53,7 @@ class ApplicationManager {
 		return $this->routingEngine;
 	}
 
-	public function setRoutingEngine($value) {
+	public function setRoutingEngine(IRoutingEngine $value) {
 		$this->routingEngine = $value;
 	}
 

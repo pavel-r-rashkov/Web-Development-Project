@@ -3,8 +3,9 @@
 namespace Core\ResultExecution;
 use Core\ResultExecution\ActionResults\PartialViewResult;
 use Core\ResultExecution\ActionResults\ViewResult;
+use Core\Contracts\IViewEngine;
 
-class ViewEngine {
+class ViewEngine implements IViewEngine {
 	const VIEWS_ROOT_DIR = 'Views'; // from config
 
 	public function renderViewResult($viewResult, $areaName) {

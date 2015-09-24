@@ -1,9 +1,17 @@
 <?php
 
+require_once(__DIR__ . '/Routing/Route.php');
+
+require_once(__DIR__ . '/Contracts/IContainer.php');
+require_once(__DIR__ . '/Contracts/IRoleProvider.php');
+require_once(__DIR__ . '/Contracts/IControllerFactory.php');
+require_once(__DIR__ . '/Contracts/IViewEngine.php');
+require_once(__DIR__ . '/Contracts/IRoutingEngine.php');
+
 require_once(__DIR__ . '/Routing/RequestDispatcher.php');
 require_once(__DIR__ . '/Routing/RoutingEngine.php');
-require_once(__DIR__ . '/Routing/Route.php');
 require_once(__DIR__ . '/Routing/RouteMatchResult.php');
+
 require_once(__DIR__ . '/Controllers/DefaultController.php');
 require_once(__DIR__ . '/Controllers/ControllerFactory.php');
 
@@ -34,8 +42,7 @@ require_once(__DIR__ . '/ResultExecution/ActionResults/PartialViewResult.php');
 require_once(__DIR__ . '/ResultExecution/ActionResults/ViewResult.php');
 require_once(__DIR__ . '/ResultExecution/ActionResults/ContentResult.php');
 
-require_once(__DIR__ . '/Contracts/IContainer.php');
-require_once(__DIR__ . '/Contracts/IRoleProvider.php');
+
 
 require_once(__DIR__ . '/Container.php');
 require_once(__DIR__ . '/BindOptions.php');
