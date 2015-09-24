@@ -14,6 +14,7 @@ class SomeController extends DefaultController {
 	}
 	/**
 	*@AuthorizeRole(SecondRole, FirstRole)
+	*@Route(pesho/gosho)
 	*/
 	public function someAction() {
 		return new ViewResult(new MyModel(), 'SampleView.php');

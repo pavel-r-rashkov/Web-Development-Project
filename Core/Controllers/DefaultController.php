@@ -14,7 +14,7 @@ class DefaultController {
 	/** 
 	*@Route(gggg/bbb)
 	*/
-	public function hello(BindingModel $d, $g) {
+	protected function hello(BindingModel $d, $g) {
 		#return new ContentResult("Some content");
 		return new ViewResult($d, 'SampleView.php');
 	}

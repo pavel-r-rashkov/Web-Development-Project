@@ -99,7 +99,7 @@ class Html {
 			$optionsHtml);
 		return $tag->getHtml();
 	}
-
+	
 	public static function renderRoute($route, $data = array()) {
 		$url = APP_ROOT_URL . $route;
 		//$data = array('key1' => 'value1', 'key2' => 'value2');

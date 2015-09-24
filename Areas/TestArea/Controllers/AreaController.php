@@ -9,6 +9,7 @@ use Core\ResultExecution\ActionResults\PartialViewResult;
 class AreaController extends DefaultController {
 	/**
 	*@ValidateAntiForgeryToken()
+	*@Route(sasho/{id}/{kk})
 	*/
 	public function someAction() {
 		return new PartialViewResult(null, 'AreaView.php');

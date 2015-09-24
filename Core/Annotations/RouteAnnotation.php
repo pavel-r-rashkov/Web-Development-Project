@@ -10,7 +10,7 @@ class RouteAnnotation extends BaseAnnotation {
 	}
 
 	public function getRoutePath() {
-		return $this->$routePath;
+		return $this->routePath;
 	}
 
 	private function setRoutePath($value) {

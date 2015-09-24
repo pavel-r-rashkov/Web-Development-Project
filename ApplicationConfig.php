@@ -15,6 +15,10 @@ class ApplicationConfig {
 		$appManager->registerArea('TestArea');
 	}
 
+	public static function bootstrap() {
+		
+	}
+
 	public static function routeConfig($routingEngine) {
 		#$routingEngine->registerRoute(new Route(...));
 

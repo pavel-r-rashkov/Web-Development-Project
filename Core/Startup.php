@@ -27,6 +27,9 @@ $appManager->setRoutingEngine(new RoutingEngine());
 
 ApplicationConfig::initializeComponents($appManager);
 ApplicationConfig::registerAreas($appManager);
+ApplicationConfig::bootstrap();
+$routingEngine = $appManager->getRoutingEngine();
+$routingEngine->registerAnnotationRoutes();
 ApplicationConfig::routeConfig($appManager->getRoutingEngine());
 ApplicationConfig::registerBindings($appManager->getContainer());
 
