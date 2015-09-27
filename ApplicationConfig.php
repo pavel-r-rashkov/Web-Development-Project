@@ -3,6 +3,8 @@
 namespace Config;
 use Core\BindOptions;
 use Core\Routing\Route;
+use Data\Config\Database;
+use Data\Config\DatabaseConfig;
 
 class ApplicationConfig {
 
@@ -16,7 +18,24 @@ class ApplicationConfig {
 	}
 
 	public static function bootstrap() {
-		
+
+		require_once(__DIR__ . DS . 'Data/Config/Drivers/DriverFactory.php');
+		require_once(__DIR__ . DS . 'Data/Config/Drivers/DriverAbstract.php');
+		require_once(__DIR__ . DS . 'Data/Config/Drivers/MySQLDriver.php');
+		require_once(__DIR__ . DS . 'Data/Config/Database.php');
+		require_once(__DIR__ . DS . 'Data/Config/DatabaseConfig.php');
+		require_once(__DIR__ . DS . 'Data/Config/Statement.php');
+
+		Database::setInstance(
+			DatabaseConfig::DB_INSTANCE,
+			DatabaseConfig::DB_DRIVER,
+			DatabaseConfig::DB_USER,
+			DatabaseConfig::DB_PASS,
+			DatabaseConfig::DB_NAME,
+			DatabaseConfig::DB_HOST
+		);
+
+		Database::getInstance(DatabaseConfig::DB_INSTANCE);
 	}
 
 	public static function routeConfig($routingEngine) {
