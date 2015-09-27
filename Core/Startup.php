@@ -1,6 +1,6 @@
 <?php
 
-include_once('Bootstrap.php');
+#include_once('Bootstrap.php');
 
 use Core\Routing\RoutingEngine;
 use Core\ResultExecution\ViewEngine;
@@ -8,13 +8,18 @@ use Core\Controllers\ControllerFactory;
 use Core\Container;
 use Core\RequestPipeline;
 use Core\ApplicationManager;
-use Config\ApplicationConfig;
+#use ApplicationConfig;
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT_PATH', basename(dirname(dirname(__FILE__))) . DS);
 define('ROOT', dirname(dirname(__FILE__)) . DS);
 define( 'ROOT_URL', 'http://' . $_SERVER['HTTP_HOST'] . DS);
 define('APP_ROOT_URL', ROOT_URL . ROOT_PATH);
+
+spl_autoload_register(function($class) {
+	$classPath = str_replace("\\", "/", $class);
+	require_once(dirname(__DIR__) . DS . $classPath . '.php');
+});
 
 session_start();
 
