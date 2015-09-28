@@ -33,7 +33,7 @@ class User {
 	}
 
 	public function getPasswordDigest() {
-		$this->passwordDigest;
+		return $this->passwordDigest;
 	}
 
 	public function setPasswordDigest($value) {

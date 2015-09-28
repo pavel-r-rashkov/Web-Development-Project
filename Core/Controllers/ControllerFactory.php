@@ -7,7 +7,7 @@ use Core\Contracts\IControllerFactory;
 class ControllerFactory implements IControllerFactory {
 	public function createController($controllerName, $area) {
 		if (is_null($area)) {
-			$class = 'Controllers\\' . $controllerName;	
+			$class = 'Controllers\\' . ucfirst($controllerName) . 'Controller';	
 		} else {
 			$class = 'Areas\\' . $area . '\\Controllers\\' . $controllerName;
 		}

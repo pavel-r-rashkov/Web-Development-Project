@@ -42,13 +42,17 @@ class ApplicationConfig {
 		$a = new Route('asdf/{aaa}/3/{bbb}/{g}', 'SomeController', 'someAction');
 		$routingEngine->registerRoute($a);
 
-		$b = new Route('test/test/{g}', 'AreaController', 'someAction', 'TestArea');
+		$b = new Route('{controller}/{action}', '{controller}', '{action}');
 		$routingEngine->registerRoute($b);
+
+		$c = new Route('{controller}/{action}/{id}', '{controller}', '{action}');
+		$routingEngine->registerRoute($c);
 	}
 
 	public static function registerBindings($container) {
 		#$container->bind('Contracts\IContainer', 'Core\Container', BindOptions::NONE);
 		$container->bind('Core\Contracts\IRoleProvider', 'RoleProvider', BindOptions::SINGLETON);
+		$container->bind('Data\Contracts\IShopData', 'Data\ShopData', BindOptions::SINGLETON);
 	}
 }
 

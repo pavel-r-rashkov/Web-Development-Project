@@ -80,6 +80,18 @@ class Html {
 		return $tag->getHtml();
 	}
 
+	public static function submit($value) {
+		$attributes = array(
+				'type' => 'submit',
+				'value' => $value);
+
+		$tag = new Tag(
+			'input',
+			$attributes,
+			null);
+		return $tag->getHtml();
+	}
+
 	public static function select($name, $options) {
 		$attributes = array('name' => $name);
 		$optionsHtml = '';
@@ -121,6 +133,18 @@ class Html {
 				'action' => APP_ROOT_URL . $action,
 				'class' => 'data-ajax-form',
 				'data-replace-target' => $replaceTarget);
+
+		$tag = new Tag(
+			'form',
+			$attributes,
+			$content);
+		return $tag->getHtml();
+	}
+
+	public static function form($method, $action, $content = null) {
+		$attributes = array(
+				'method' => $method,
+				'action' => APP_ROOT_URL . $action);
 
 		$tag = new Tag(
 			'form',

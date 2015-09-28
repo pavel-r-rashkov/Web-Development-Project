@@ -3,6 +3,9 @@
 namespace Core;
 
 class Utils {
+	const LOAD_FACTOR = 10;
+	const SALT_LENGTH = 14;
+
 	private static function cryptoRandSecure($min, $max)
 	{
 	    $range = $max - $min;
@@ -29,6 +32,28 @@ class Utils {
 	        $token .= $codeAlphabet[self::cryptoRandSecure(0, $max)];
 	    }
 	    return $token;
+	}
+
+	public static function verifyHash($candidate, $hash) {
+		$salt = substr($hash, 0, self::SALT_LENGTH);
+		$digest = $candidate . $salt;
+
+		for ($i = 0; $i < self::LOAD_FACTOR; $i++) { 
+			$digest = md5($digest);
+		}
+		
+		return $salt . $digest == $hash;
+	}
+
+	public static function digestPass($password) {
+		$salt = self::getToken(self::SALT_LENGTH);
+		$digest = $password . $salt;
+
+		for ($i = 0; $i < self::LOAD_FACTOR; $i++) { 
+			$digest = md5($digest);
+		}
+
+		return $salt . $digest;
 	}
 }
 

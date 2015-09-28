@@ -3,9 +3,9 @@
 namespace Data\Repositories;
 
 abstract class BaseRepository {
-	private $db;
+	protected $db;
 
-	public function __construct($db) {
+	protected function __construct($db) {
 		$this->db = $db;
 	}
 }

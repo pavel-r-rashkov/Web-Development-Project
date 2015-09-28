@@ -6,7 +6,7 @@ abstract class BaseActionResult {
 	private $headers;
 	private $data;
 
-	public function __construct($headers, $data) {
+	protected function __construct($headers, $data) {
 		$this->headers = $headers;
 		$this->data = $data;
 	}

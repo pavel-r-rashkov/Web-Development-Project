@@ -14,6 +14,7 @@ class SomeController extends DefaultController {
 	public function __construct(IRoleProvider $provider) {
 		$this->provider = $provider;
 	}
+	
 	/**
 	*@AuthorizeRole(SecondRole, FirstRole)
 	*@Route(pesho/gosho)

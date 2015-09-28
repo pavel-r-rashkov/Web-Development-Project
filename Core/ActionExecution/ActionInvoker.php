@@ -30,7 +30,7 @@ class ActionInvoker {
 			} else if(array_key_exists($paramName, $this->actionParams)) {
 				array_push($actionArgs, $this->actionParams[$paramName]);
 				unset($this->actionParams[$paramName]);
-			} else if (array_key_exists($paramName, $_REQUEST[$paramName])) {
+			} else if (array_key_exists($paramName, $_REQUEST)) {
 				array_push($actionArgs, $_REQUEST[$paramName]);
 				unset($_REQUEST[$paramName]);
 			} else {
@@ -43,7 +43,7 @@ class ActionInvoker {
 
 	private function populateBindingModel($paramClass) {
 		$bindingModelInstance = new $paramClass();
-		$reflection = new ReflectionClass($bindingModelInstance);
+		$reflection = new \ReflectionClass($bindingModelInstance);
 
 		$properties = $reflection->getMethods();
 
@@ -55,7 +55,7 @@ class ActionInvoker {
 				if(array_key_exists($paramName, $this->actionParams)) {
 					$bindingModelInstance->{$property->name}($this->actionParams[$paramName]);
 					unset($this->actionParams[$paramName]);
-				} else if (array_key_exists($paramName, $_REQUEST[$paramName])) {
+				} else if (array_key_exists($paramName, $_REQUEST)) {
 					$bindingModelInstance->{$property->name}($_REQUEST[$paramName]);
 					unset($_REQUEST[$paramName]);
 				} else {
