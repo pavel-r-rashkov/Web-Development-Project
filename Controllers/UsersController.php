@@ -37,8 +37,6 @@ class UsersController extends BaseController {
 
 		return new RedirectActionResult('sessions/newsession');
 	}
-
-	
 }
 
 ?>

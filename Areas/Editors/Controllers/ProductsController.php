@@ -66,6 +66,10 @@ class ProductsController extends EditorsController {
 		return new RedirectActionResult('editors/products/index?page=1');
 	}
 
+	/**
+	*@HttpPost()
+	*@ValidateAntiForgeryToken()
+	*/
 	public function delete($id) {
 		$this->shopData->getProductRepository()->deleteProduct($id);
 		return new RedirectActionResult('editors/products/index?page=1');

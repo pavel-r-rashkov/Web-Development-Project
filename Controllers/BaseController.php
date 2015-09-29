@@ -10,6 +10,10 @@ class BaseController extends DefaultController {
 	public function __construct(IShopData $shopData) {
 		$this->shopData = $shopData;
 	}
+
+	protected function currentUser() {
+		return $_SESSION['userId'];
+	}
 }
 
 ?>

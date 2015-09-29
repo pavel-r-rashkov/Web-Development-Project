@@ -30,8 +30,8 @@ class Comment {
 	}
 
 	public function setContent($value) {
-		if ($value == null || strlen($value) < 20) {
-			throw new \Exception('Review must be at least 20 letters long');
+		if ($value == null || strlen($value) > 150) {
+			throw new \Exception('Review must be less than 150 letters');
 		}
 		$this->content = $value;
 	}

@@ -1,7 +1,6 @@
 <?php
 
 namespace Areas\Editors\Controllers;
-use Controllers\BaseController;
 use Data\Contracts\IShopData;
 use BindingModels\Products\CreateCategoryBindingModel;
 use Core\ResultExecution\ActionResults\PartialViewResult;
@@ -13,15 +12,14 @@ class CategoriesController extends EditorsController {
 		parent::($shopData);
 	}
 
-	public function all() {
-		$categories = $this->shopData->getCategoryRepository()->getCategories();
-		return new PartialViewResult($categories, 'Categories/All.php');
-	}
-
 	public function newCategory() {
 		return new ViewResult(new CreateCategoryBindingModel(), 'Categories/NewCategory.php');
 	}
 
+	/**
+	*@HttpPost()
+	*@ValidateAntiForgeryToken()
+	*/
 	public function create(CreateCategoryBindingModel $newCategory) {
 		if ($newCategory == null || !$newCategory->isValid()) {
 			return new ViewResult($newCategory, 'Categories/NewCategory.php');
@@ -33,6 +31,10 @@ class CategoriesController extends EditorsController {
 		return new RedirectActionResult('home/index');
 	}
 
+	/**
+	*@HttpPost()
+	*@ValidateAntiForgeryToken()
+	*/
 	public function delete($id) {
 		$this->shopData->getCategoryRepository()->deleteCategory($id);
 		return new RedirectActionResult('home/index');

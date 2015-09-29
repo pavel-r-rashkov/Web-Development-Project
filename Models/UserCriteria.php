@@ -36,7 +36,7 @@ class UserCriteria {
 		return $this->minimumDaysRegistered;
 	}
 
-	public function setMminimumCash($value) {
+	public function setMinimumCash($value) {
 		if ($value != null && $value < 0) {
 			throw new \Exception('Minimum cash cannot be negative');
 		}
