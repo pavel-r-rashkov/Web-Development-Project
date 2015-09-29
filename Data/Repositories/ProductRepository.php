@@ -8,6 +8,10 @@ class ProductRepository extends BaseRepository {
 		parent::__construct($db);
 	}
 
+	public function find($id) {
+
+	}
+
 	public function getProducts($page, $size) {
 
 	}

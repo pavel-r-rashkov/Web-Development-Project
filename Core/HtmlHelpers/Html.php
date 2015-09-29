@@ -52,6 +52,18 @@ class Html {
 		return $tag->getHtml();
 	}
 
+	public static function datePicker($name) {
+		$attributes = array(
+				'name' => $name, 
+				'type' => 'date');
+
+		$tag = new Tag(
+			'input',
+			$attributes, 
+			null);
+		return $tag->getHtml();
+	}
+
 	public static function textarea($name, $content = null, $placeholder = '', $rows = 4, $cols = 50) {
 		$attributes = array(
 				'name' => $name, 

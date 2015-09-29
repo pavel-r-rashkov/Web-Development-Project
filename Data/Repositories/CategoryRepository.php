@@ -16,10 +16,6 @@ class CategoryRepository extends BaseRepository {
 
 	}
 
-	public function updateCategory(Category $category) {
-
-	}
-
 	public function deleteCategory($id) {
 
 	}
