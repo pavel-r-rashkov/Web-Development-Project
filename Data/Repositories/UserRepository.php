@@ -12,6 +12,14 @@ class UserRepository extends BaseRepository {
 
 	}
 
+	public function addMoney($userId, $amount) {
+
+	}
+
+	public function takeMoney($userId, $amount) {
+
+	}
+
 	public function getUser($username) {
 		$result = $this->db->prepare("
 			SELECT id, username, password_digest
@@ -29,11 +37,11 @@ class UserRepository extends BaseRepository {
 
 	public function addUser(User $user) {
 		$result = $this->db->prepare("
-			INSERT INTO user(username, password_digest)
-			VALUES(?, ?);
+			INSERT INTO user(username, password_digest, money)
+			VALUES(?, ?, ?);
 		");
 
-		$result->execute([ $user->getUsername(), $user->getPasswordDigest() ]);
+		$result->execute([ $user->getUsername(), $user->getPasswordDigest(), $user->getMoney() ]);
 	}
 }
 

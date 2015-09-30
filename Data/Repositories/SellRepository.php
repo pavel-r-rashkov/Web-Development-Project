@@ -8,11 +8,19 @@ class SellRepository extends BaseRepository {
 		parent::__construct($db);
 	}
 
+	public function find($sellId) {
+
+	}
+
 	public function addSell(Sell $sell) {
 
 	}
 
-	public function deleteSell($sellId) {
+	public function getSells($sellIds) {
+
+	}
+
+	public function deleteSells($sellIds) {
 
 	}
 }

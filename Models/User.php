@@ -6,11 +6,13 @@ class User {
 	private $id;
 	private $username;
 	private $passwordDigest;
+	private $money;
 
-	public function __construct($username, $passwordDigest, $id = null) {
+	public function __construct($username, $passwordDigest, $money, $id = null) {
 		$this->setId($id);
 		$this->setUsername($username);
 		$this->setPasswordDigest($passwordDigest);
+		$this->setMoney($money);
 	}
 
 	public function getId() {
@@ -41,6 +43,14 @@ class User {
 			throw new \Exception('Invalid password digest');
 		}
 		$this->passwordDigest = $value;
+	}
+
+	public function getMoney() {
+		return $this->money;
+	}
+
+	public function setMoney($value) {
+		$this->money = $value;
 	}
 }
 

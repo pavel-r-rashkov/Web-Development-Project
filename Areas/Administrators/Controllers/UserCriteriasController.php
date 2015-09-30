@@ -25,10 +25,13 @@ class UserCriteriasController extends AdminController {
 			return new ViewResult($newCriteria, 'UserCriterias/NewCriteria.php');
 		}
 
-		$criteria = new UserCriteria($newCriteria->getMinimumDaysRegistered(), $newCriteria->getMinimumCash());
+		$criteria = new UserCriteria(
+			$newcriteria->getName(),
+			$newCriteria->getMinimumDaysRegistered(), 
+			$newCriteria->getMinimumCash());
 		$this->shopData->getUserCriteriaRepository()->addUserCriteria($criteria);
 
-		return new RedirectActionResult('editors/usercriterias/index');
+		return new RedirectActionResult('administrators/usercriterias/newcriteria');
 	}
 }
 

@@ -11,9 +11,9 @@ class UserCriteriasController extends EditorsController {
 		parent::($shopData);
 	}
 
-	public function all() {
-		$criterias = $this->shopData->getUserCriteriaRepository()->getUserCriterias();
-		return new ViewResult($criterias, 'UserCriterias/All.php');
+	public function show($id) {
+		$criteria = $this->shopData->getUserCriteriaRepository()->find($id);
+		return new PartialViewResult($criteria, 'UserCriterias/Show.php');
 	}
 
 }

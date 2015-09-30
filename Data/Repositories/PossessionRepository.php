@@ -8,7 +8,7 @@ class PossessionRepository extends BaseRepository {
 		parent::__construct($db);
 	}
 
-	public function getUserPossession($userId) {
+	public function find($userId) {
 
 	}
 
@@ -17,6 +17,10 @@ class PossessionRepository extends BaseRepository {
 	}
 
 	public function updatePossession(Possession $possession) {
+
+	}
+
+	public function deletePossession($id) {
 
 	}
 }

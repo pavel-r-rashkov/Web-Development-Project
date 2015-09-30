@@ -9,6 +9,8 @@ use BindingModels\Users\CreateUserBindingModel;
 use Core\Utils;
 
 class UsersController extends BaseController {
+	const INITIAL_CASH = 200;
+
 	public function __construct(IShopData $shopData) {
 		parent::__construct($shopData);
 	}
@@ -32,7 +34,7 @@ class UsersController extends BaseController {
 		}
 
 		$hashed = Utils::digestPass($newUser->getPassword());
-		$user = new User($newUser->getUsername(), $hashed);
+		$user = new User($newUser->getUsername(), $hashed, self::INITIAL_CASH);
 		$this->shopData->getUserRepository()->addUser($user);		
 
 		return new RedirectActionResult('sessions/newsession');

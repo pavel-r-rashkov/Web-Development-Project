@@ -4,11 +4,13 @@ namespace Models;
 
 class UserCriteria {
 	private $id;
+	private $name;
 	private $minimumDaysRegistered;
 	private $minimumCash;
 
-	public function __construct($minimumDaysRegistered, $minimumCash, $id = null) {
+	public function __construct($name, $minimumDaysRegistered, $minimumCash, $id = null) {
 		$this->setId($id);
+		$this->setName($name);
 		$this->setMinimumDaysRegistered($minimumDaysRegistered);
 		$this->setMminimumCash($minimumCash);
 	}
@@ -19,6 +21,14 @@ class UserCriteria {
 
 	public function setId($value) {
 		$this->id = $value;
+	}
+
+	public function getName() {
+		return $this->name;
+	}
+
+	public function setName($value) {
+		$this->name = $value;
 	}
 
 	public function getMinimumDaysRegistered() {
