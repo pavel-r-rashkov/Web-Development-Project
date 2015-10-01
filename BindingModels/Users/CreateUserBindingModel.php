@@ -23,7 +23,9 @@ class CreateUserBindingModel {
 	}
 
 	public function isValid() {
-		return true;
+		$validUsername = strlen($this->username) >= 5;
+		$validPassword = strlen($this->password) >= 5;
+		return $validPassword && $validUsername;
 	}
 }
 

@@ -11,10 +11,14 @@ class AnnotationHelper {
 		$this->annotationFactory = $annotationFactory;
 	}
 
-	public function extractAnnotations($classFullName, $methodName) {
+	public function extractAnnotations($classFullName, $methodName = null) {
 		$reflection = new \ReflectionClass($classFullName);
-		$methodDoc = $reflection->getMethod($methodName)->getDocComment();
-		$annotationData = self::getAnnotationsNamesParams($methodDoc);
+		if ($methodName == null) {
+			$doc = $reflection->getDocComment();
+		} else {
+			$doc = $reflection->getMethod($methodName)->getDocComment();
+		}
+		$annotationData = self::getAnnotationsNamesParams($doc);
 
 		$annotations = array();
 		foreach ($annotationData as $key => $annotation) {

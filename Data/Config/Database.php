@@ -40,7 +40,7 @@ class Database {
 	}
 
 	public function query($query) {
-		$this->db->query($query);
+		return $this->db->query($query);
 	}
 
 	public function lastId($name = null) {

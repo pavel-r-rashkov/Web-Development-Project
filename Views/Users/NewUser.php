@@ -11,3 +11,5 @@ echo Html::form('post', 'users/create',
 	Html::submit('Register') .
 	Html::csrfToken());
 ?>
+
+<?php Html::renderAction('categories', 'all') ?>

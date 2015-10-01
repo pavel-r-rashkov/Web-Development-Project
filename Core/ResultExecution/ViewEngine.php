@@ -17,7 +17,7 @@ class ViewEngine implements IViewEngine {
 
 		if ($viewResult instanceof ViewResult) {
 			$template = $this->findViewLayout($view);
-			include_once(ROOT . $template);
+			include(ROOT . $template);
 		} else if ($viewResult instanceof PartialViewResult) {
 			include_once($view);
 		}
@@ -37,7 +37,7 @@ class ViewEngine implements IViewEngine {
 		while($currentPath != $stopper) {
 			$layoutPath = $currentPath . DS . 'LayoutConfig.php';
 			if (file_exists($layoutPath)) {
-				include_once($layoutPath);
+				include($layoutPath);
 				return $layout;
 			}
 
@@ -45,6 +45,14 @@ class ViewEngine implements IViewEngine {
 		}
 
 		throw new \Exception('Cannot find layout config.');
+	}
+
+	public function show($value) {
+		echo htmlspecialchars($value);
+	}
+
+	public function trust($value) {
+		echo $value;
 	}
 
 	// public static function view() {

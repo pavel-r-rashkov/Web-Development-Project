@@ -8,7 +8,7 @@ use Core\ResultExecution\ActionResults\RedirectActionResult;
 
 class CategoriesController extends BaseController {
 	public function __construct(IShopData $shopData) {
-		parent::($shopData);
+		parent::__construct($shopData);
 	}
 
 	public function all() {

@@ -6,13 +6,11 @@ class ActionInvoker {
 	private $controller;
 	private $actionName;
 	private $actionParams;
-	private $annotations;
 
-	public function __construct($controller, $actionName, $actionParams, $annotations) {
+	public function __construct($controller, $actionName, $actionParams) {
 		$this->controller = $controller;
 		$this->actionName = $actionName;
 		$this->actionParams = $actionParams;
-		$this->annotations = $annotations;
 	}
 
 	public function processBinding() {
@@ -67,41 +65,11 @@ class ActionInvoker {
 		return $bindingModelInstance;
 	}
 
-	public function processAnnotations() {
-		$this->processAuthenticationAnnotations();
-		$this->processAuthorizeAnnotations();
-		$this->processActionFilterAnnotations();
-	}
-
 	public function executeAction($actionArgs) {
 		$reflection = new \ReflectionClass($this->controller);
 		$action = $reflection->getMethod($this->actionName);
 		$actionResult = $action->invokeArgs($this->controller, $actionArgs);
 		return $actionResult;
-	}
-
-	private function processAuthenticationAnnotations() {
-		foreach ($this->annotations as $annotation) {
-			if (is_subclass_of($annotation, 'Core\Annotations\AuthenticateAnnotation')) {
-				$annotation->authenticate();
-			}
-		}
-	}
-
-	private function processAuthorizeAnnotations() {
-		foreach ($this->annotations as $annotation) {
-			if (is_subclass_of($annotation, 'Core\Annotations\AuthorizeAnnotation')) {
-				$annotation->authorize();
-			}
-		}
-	}
-
-	private function processActionFilterAnnotations() {
-		foreach ($this->annotations as $annotation) {
-			if (is_subclass_of($annotation, 'Core\Annotations\ActionFilterAnnotation')) {
-				$annotation->filterAction();
-			}
-		}
 	}
 
 	private static function strStartsWith($haystack, $needle)

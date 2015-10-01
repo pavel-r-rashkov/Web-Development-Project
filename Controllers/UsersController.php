@@ -25,6 +25,7 @@ class UsersController extends BaseController {
 	*/
 	public function create(CreateUserBindingModel $newUser) {
 		if (!$newUser->isValid()) {
+			$_SESSION['warrning'] = 'Ooopss...';
 			return new ViewResult($newUser, 'Users/NewUser.php');
 		}
 

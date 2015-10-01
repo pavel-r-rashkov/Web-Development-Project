@@ -2,6 +2,7 @@
 
 namespace Core\HtmlHelpers;
 use Core\Utils;
+use Core\RequestPipeline;
 
 class Html {
 	public static function radio($name, $value, $checked = false) {
@@ -202,6 +203,10 @@ class Html {
 			$attributes,
 			null);
 		return $tag->getHtml();
+	}
+
+	public static function renderAction($controllerName, $actionName, $params = array(), $areaName = null) {
+		RequestPipeline::executeAction($controllerName, $actionName, $params, $areaName);
 	}
 }
 
