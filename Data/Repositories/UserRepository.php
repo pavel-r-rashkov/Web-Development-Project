@@ -9,15 +9,40 @@ class UserRepository extends BaseRepository {
 	}
 
 	public function findUser($userId) {
+		$result = $this->db->prepare("
+			SELECT id, username, password_digest, money
+			FROM user
+			WHERE id = ?
+		");
 
+		$result->execute([ $userId ]);
+		$user = new User( 
+			$result[0]['username'], 
+			$result[0]['password_digest'], 
+			$result[0]['money'], 
+			$result[0]['id']);
+
+		return $user;
 	}
 
 	public function addMoney($userId, $amount) {
+		$result = $this->db->prepare("
+			UPDATE user
+			SET money = money + ?,
+			WHERE id = ?
+		");
 
+		$result->execute([ $amount, $userId ]);
 	}
 
 	public function takeMoney($userId, $amount) {
+		$result = $this->db->prepare("
+			UPDATE user
+			SET money = money - ?,
+			WHERE id = ?
+		");
 
+		$result->execute([ $amount, $userId ]);
 	}
 
 	public function getUser($username) {

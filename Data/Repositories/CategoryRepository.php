@@ -9,15 +9,35 @@ class CategoryRepository extends BaseRepository {
 	}
 
 	public function getCategories() {
+		$result = $this->db->query("
+			SELECT id, name
+			FROM category
+		");
 
+		$categories = array();
+		foreach ($result as $row) {
+			array_push($categories, new Category($row['name'], $row['id']));
+		}
+
+		return $categories;
 	}
 
 	public function addCategory(Category $category) {
+		$result = $this->db->prepare("
+			INSERT INTO category(name)
+			VALUES(?)
+		");
 
+		$result->execute([ $category->getName() ]);
 	}
 
 	public function deleteCategory($id) {
+		$result = $this->db->prepare("
+			DELETE c FROM category c
+			WHERE id = ?
+		");
 
+		$result->execute([ $id ]);
 	}
 }
 

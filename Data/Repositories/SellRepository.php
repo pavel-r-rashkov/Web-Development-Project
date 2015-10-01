@@ -9,7 +9,7 @@ class SellRepository extends BaseRepository {
 	}
 
 	public function find($sellId) {
-
+		
 	}
 
 	public function addSell(Sell $sell) {

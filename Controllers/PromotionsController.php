@@ -18,7 +18,7 @@ class PromotionsController extends BaseController {
 	}
 
 	public function newPromotion() {
-		$criterias = $this->shopData->getUserCriteriaRepository()->getShopUserCriterias();
+		$criterias = $this->shopData->getUserCriteriaRepository()->getUserCriterias();
 		$products = $this->shopData->getProductRepository()->getProducts();
 		$categories = $this->shopData->getCategories()->getCategories();
 		$viewModel = new CreatePromotionViewModel($criterias, $products, $categories);
@@ -32,7 +32,7 @@ class PromotionsController extends BaseController {
 	*/
 	public function create(CreatePromotionBindingModel $newPromotion) {
 		if ($newPromotion == null || !$newPromotion->isValid()) {
-			return new RedirectActionResult('editors/promotions/newpromotion');
+			return new RedirectActionResult('promotions/newpromotion');
 		}
 
 		$promotion = new Promotion(

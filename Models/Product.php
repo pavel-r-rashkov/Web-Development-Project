@@ -7,12 +7,14 @@ class Product {
 	private $name;
 	private $quantity;
 	private $description;
+	private $categoryId;
 
-	public function __construct($name, $quantity, $description, $id = null) {
+	public function __construct($name, $quantity, $description, $categoryId, $id = null) {
 		$this->setId($id);
 		$this->setName($name);
 		$this->setQuantity($quantity);
 		$this->setDescription($description);
+		$this->setCategoryId($categoryId);
 	}
 
 	public function getId() {
@@ -54,6 +56,14 @@ class Product {
 			throw new \Exception('Product description must be at least 10 letters long');
 		}
 		$this->description = $value;
+	}
+
+	public function getCategoryId() {
+		return $this->categoryId;
+	}
+
+	public function setCategoryId($value) {
+		$this->id = $categoryId;
 	}
 }
 

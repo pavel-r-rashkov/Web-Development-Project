@@ -16,7 +16,7 @@ class CreatePromotionViewModel {
 	public function getUserCriterias() {
 		return $this->userCriterias;
 	}
-
+	
 	public function setUserCriterias($value) {
 		$this->userCriterias = $value;
 	}

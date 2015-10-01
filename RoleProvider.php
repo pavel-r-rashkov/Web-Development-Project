@@ -11,7 +11,13 @@ class RoleProvider implements IRoleProvider {
 	}
 
 	public function getUserRoles($id) {
-		return array('FirstRole', 'SecondRole', 'Admin', 'Editor');
+		$roles = $this->shopData->getRoleRepository();
+		$roleNames = array();
+		foreach ($roles as $role) {
+			array_push($roleNames, $role->getName());
+		}
+		
+		return $roleNames;
 	}
 
 	public function isAdmin($id) {
