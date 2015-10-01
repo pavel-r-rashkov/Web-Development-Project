@@ -32,7 +32,7 @@ class CartController extends BaseController {
 		$sellIds = $_SESSION['cart'];
 		//begin tran
 		$sells = $this->shopData->getSellRepository()->getSells($sellIds);
-		$sum = array_reduct($sells, function($carry, $item) {
+		$sum = array_reduce($sells, function($carry, $item) {
 
 		});
 
@@ -51,11 +51,12 @@ class CartController extends BaseController {
 		 	if ($sell->getOwnerId != null) {
 		 		$this->shopData->getUserRepository()->addMoney($sell->getOwnerId, $sell->getPrice());
 		 	}
+		 	// add money to shop
 		 }
 
-		 $this->shopData->getSellRepository()->deleteSells($sellIds);
+		$this->shopData->getSellRepository()->deleteSells($sellIds);
 		//end tran
-		 return new RedirectActionResult('sells/index');
+		return new RedirectActionResult('cart/clear');
 	}
 }
 

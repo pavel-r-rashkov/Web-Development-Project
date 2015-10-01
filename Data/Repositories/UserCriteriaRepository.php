@@ -15,6 +15,10 @@ class UserCriteriaRepository extends BaseRepository {
 	public function addUserCriteria(UserCriteria $userCriteria) {
 
 	}
+
+	public function getShopUserCriterias() {
+		
+	}
 }
 
 ?>

@@ -26,7 +26,7 @@ class CommentsController extends BaseController {
 	*/
 	public function create(CreateCommentBindingModel $newComment) {
 		if ($newComment == null || !$newComment->isValid()) {
-			return RedirectActionResult('sells/show/' . $newComment->getSellId());
+			return new RedirectActionResult('sells/show/' . $newComment->getSellId());
 		}
 
 		$comment = new Comment($newCategory->getName());
