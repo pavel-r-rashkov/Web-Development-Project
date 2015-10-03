@@ -4,6 +4,7 @@ namespace Data;
 use Data\Contracts\IShopData;
 use Data\Repositories\CategoryRepository;
 use Data\Repositories\UserRepository;
+use Data\Repositories\RoleRepository;
 use Data\Config\Database;
 use Data\Config\DatabaseConfig;
 
@@ -11,6 +12,7 @@ class ShopData implements IShopData {
 	private $db;
 	private $categoryRepository;
 	private $userRepository;
+	private $roleRepository;
 
 	public function __construct() {
 		$this->db = Database::getInstance(DatabaseConfig::DB_INSTANCE);
@@ -28,6 +30,13 @@ class ShopData implements IShopData {
 			$this->userRepository = new UserRepository($this->db);
 		}
 		return $this->userRepository;
+	}
+
+	public function getRoleRepository() {
+		if ($this->roleRepository == null) {
+			$this->roleRepository = new RoleRepository($this->db);
+		}
+		return $this->roleRepository;
 	}
 }
 

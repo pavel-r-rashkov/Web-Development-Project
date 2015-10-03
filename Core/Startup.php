@@ -8,7 +8,6 @@ use Core\Controllers\ControllerFactory;
 use Core\Container;
 use Core\RequestPipeline;
 use Core\ApplicationManager;
-#use ApplicationConfig;
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT_PATH', basename(dirname(dirname(__FILE__))) . DS);

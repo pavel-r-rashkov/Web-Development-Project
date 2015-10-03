@@ -30,6 +30,15 @@ class Tag {
 	private function createAttribute($name, $value) {
 		return $name . '="' . $value . '"';
 	}
+
+	public function getOpenHtml() {
+		$html = '<' . $this->element . ' ';
+		foreach ($this->attributes as $key => $value) {
+			$html = $html . $this->createAttribute($key, $value);
+		}
+		$html = $html . '>';
+		return $html;
+	}
 }
 
 ?>

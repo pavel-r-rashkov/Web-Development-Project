@@ -39,8 +39,20 @@ class Html {
 		return $tag->getHtml();
 	}
 
-	public static function inputField($name, $value, $placeholder = '') {
+	public static function label($for, $content) {
 		$attributes = array(
+				'for' => $for);
+
+		$tag = new Tag(
+			'label',
+			$attributes, 
+			$content);
+		return $tag->getHtml();
+	}
+
+	public static function inputField($class, $name, $value, $placeholder = '') {
+		$attributes = array(
+				'class' => $class,
 				'name' => $name, 
 				'value' => $value,
 				'type' => 'text',
@@ -79,8 +91,9 @@ class Html {
 		return $tag->getHtml();
 	}
 
-	public static function password($name, $value, $placeholder = '') {
+	public static function password($class, $name, $value, $placeholder = '') {
 		$attributes = array(
+				'class' => $class,
 				'type' => 'password',
 				'name' => $name, 
 				'placeholder' => $placeholder,
@@ -93,8 +106,9 @@ class Html {
 		return $tag->getHtml();
 	}
 
-	public static function submit($value) {
+	public static function submit($class, $value) {
 		$attributes = array(
+				'class' => $class,
 				'type' => 'submit',
 				'value' => $value);
 
@@ -151,7 +165,7 @@ class Html {
 			'form',
 			$attributes,
 			$content);
-		return $tag->getHtml();
+		return $tag->getOpenHtml();
 	}
 
 	public static function form($method, $action, $content = null) {
@@ -163,7 +177,11 @@ class Html {
 			'form',
 			$attributes,
 			$content);
-		return $tag->getHtml();
+		return $tag->getOpenHtml();
+	}
+
+	public static function formClose() {
+		return '</form>';
 	}
 
 	public static function link($route, $content) {

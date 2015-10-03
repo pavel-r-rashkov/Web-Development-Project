@@ -16,6 +16,11 @@ class UsersController extends BaseController {
 	}
 
 	public function newUser() {
+		if ($this->currentUser() != null) {
+			$_SESSION['warrning'] = 'You need to log out first';
+			return new RedirectActionResult('home/index');
+		}
+
 		return new ViewResult(new CreateUserBindingModel(), 'Users/NewUser.php');
 	}
 
@@ -24,13 +29,19 @@ class UsersController extends BaseController {
 	*@ValidateAntiForgeryToken()
 	*/
 	public function create(CreateUserBindingModel $newUser) {
+		if ($this->currentUser() != null) {
+			$_SESSION['warrning'] = 'You need to log out first';
+			return new RedirectActionResult('home/index');
+		}
+
 		if (!$newUser->isValid()) {
-			$_SESSION['warrning'] = 'Ooopss...';
+			$_SESSION['warrning'] = 'Invalid register data.';
 			return new ViewResult($newUser, 'Users/NewUser.php');
 		}
 
 		$existingUser = $this->shopData->getUserRepository()->getUser($newUser->getUsername());
 		if ($existingUser != null) {
+			$_SESSION['warrning'] = 'User with that name already exists.';
 			return new ViewResult($newUser, 'Users/NewUser.php');
 		}
 

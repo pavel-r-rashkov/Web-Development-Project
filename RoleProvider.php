@@ -1,7 +1,7 @@
 <?php
 
 use Core\Contracts\IRoleProvider;
-use Core\Data\Contracts\IShopData;
+use Data\Contracts\IShopData;
 
 class RoleProvider implements IRoleProvider {
 	private $shopData;
@@ -16,7 +16,7 @@ class RoleProvider implements IRoleProvider {
 		foreach ($roles as $role) {
 			array_push($roleNames, $role->getName());
 		}
-		
+
 		return $roleNames;
 	}
 

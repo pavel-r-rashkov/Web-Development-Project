@@ -13,18 +13,14 @@ use Core\ResultExecution\ViewEngine;
 <body>
 <div class="container-fluid">
 	<row>
-		<?php include('../Views/Shared/Header.php'); ?>
-		<div>======================================</div>
+		<?php include('../Views/Shared/HeaderUnknownUser.php'); ?>
 	</row>
 	<row>
 		<?php include('../Views/Shared/Notifications.php'); ?>
 		<div class="row">
-			<main class="col-lg-8 col-lg-offset-1">
+			<main class="col-lg-6 col-lg-offset-3">
 				<?php include_once($view); ?>
 			</main>
-			<aside class="col-lg-2">
-				<?php Html::renderAction('categories', 'all') ?>
-			</aside>
 		</div>
 	</row>
 	<row>

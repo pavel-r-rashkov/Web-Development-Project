@@ -47,7 +47,7 @@ class UserRepository extends BaseRepository {
 
 	public function getUser($username) {
 		$result = $this->db->prepare("
-			SELECT id, username, password_digest
+			SELECT id, username, password_digest, money
 			FROM user
 			WHERE username = ?
 		");
@@ -57,7 +57,7 @@ class UserRepository extends BaseRepository {
 		if (!$data) {
 			return null;
 		}
-		return new User($data['username'], $data['password_digest'], $data['id']);
+		return new User($data['username'], $data['password_digest'], $data['money'], $data['id']);
 	}
 
 	public function addUser(User $user) {

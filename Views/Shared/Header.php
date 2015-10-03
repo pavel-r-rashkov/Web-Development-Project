@@ -1,10 +1,9 @@
+<?php
+use Core\ResultExecution\ViewEngine;
+use Core\HtmlHelpers\Html;
+?>
+
 <header>
-	<h1>My header</h1>
-	<nav>
-		<ul>
-			<li><a href="">Aaa</a></li>
-			<li><a href="">Bbb</a></li>
-			<li><a href="">Ccc</a></li>
-		</ul>
-	</nav>
+	<?php Html::renderAction('navigation', 'show'); ?>	
+	<h1 class="col-lg-10 col-lg-offset-1">My header</h1>
 </header>

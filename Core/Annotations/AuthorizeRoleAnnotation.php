@@ -14,11 +14,15 @@ class AuthorizeRoleAnnotation extends AuthorizeAnnotation {
 	public function authorize() {
 		$container = ApplicationManager::getInstance()->getContainer();
 		$roleProvider = $container->resolve('RoleProvider');
-		#$userId = $_SESSION['userId'];
-		$userRoles = $roleProvider->getUserRoles(5);
+		if (!isset($_SESSION['userId'])) {
+			http_response_code(403);
+			die;
+		}
+		$userId = $_SESSION['userId'];
+		$userRoles = $roleProvider->getUserRoles($userId);
 
 		if (count(array_intersect($userRoles, $this->allowedRoles)) != count($this->allowedRoles)) {
-			http_response_code(401);
+			http_response_code(403);
 			die;
 		}
 	}
