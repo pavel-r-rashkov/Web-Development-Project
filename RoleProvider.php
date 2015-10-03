@@ -11,12 +11,12 @@ class RoleProvider implements IRoleProvider {
 	}
 
 	public function getUserRoles($id) {
-		$roles = $this->shopData->getRoleRepository();
+		$roles = $this->shopData->getRoleRepository()->getUserRoles($id);
+
 		$roleNames = array();
 		foreach ($roles as $role) {
 			array_push($roleNames, $role->getName());
 		}
-
 		return $roleNames;
 	}
 

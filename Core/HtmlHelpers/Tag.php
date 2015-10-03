@@ -14,7 +14,10 @@ class Tag {
 	}
 
 	public function getHtml() {
-		$html = '<' . $this->element . ' ';
+		$html = '<' . $this->element;
+		if (count($this->attributes) > 0) {
+			$html = $html . ' ';
+		}
 		foreach ($this->attributes as $key => $value) {
 			$html = $html . $this->createAttribute($key, $value);
 		}

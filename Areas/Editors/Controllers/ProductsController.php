@@ -6,8 +6,11 @@ use Data\Contracts\IShopData;
 use BindingModels\Products\CreateProductBindingModel;
 use BindingModels\Products\UpdateProductBindingModel;
 use Core\ResultExecution\ActionResults\ViewResult;
+use Core\ResultExecution\ActionResults\PartialViewResult;
 use Core\ResultExecution\ActionResults\RedirectActionResult;
 use Models\Product;
+use ViewModels\ProductsViewModel;
+use ViewModels\EditProductViewModel;
 
 class ProductsController extends EditorsController {
 	const PAGE_SIZE = 10;
@@ -16,9 +19,19 @@ class ProductsController extends EditorsController {
 		parent::__construct($shopData);
 	}
 
-	public function index($page, $size = self::PAGE_SIZE) {
-		$products = $this->shopDate()->getProductRepository()->getProducts($page, $size);
-		return new ViewResult($products, 'Products/Index.php');
+	public function index($page) {
+		if($page == null) {
+			$page = 0;
+		}
+		return new ViewResult($page, 'Products/Index.php');
+	}
+
+	public function paged($page) {
+		$size = self::PAGE_SIZE;
+		$products = $this->shopData->getProductRepository()->getProducts($page, $size);
+		$count = $this->shopData->getProductRepository()->getProductsCount();
+		$viewModel = new ProductsViewModel($products, $count, $size, $page);
+		return new PartialViewResult($viewModel, 'Products/Paged.php');
 	}
 
 	public function newProduct() {
@@ -31,12 +44,14 @@ class ProductsController extends EditorsController {
 	*/
 	public function create(CreateProductBindingModel $newProduct) {
 		if ($newProduct == null || !$newProduct->isValid()) {
+			$_SESSION['warrning'] = 'Invalid product data';
 			return new ViewResult($newProduct, 'Products/NewProduct.php');
 		}
 
 		$product = new Product($newProduct->getName(), $newProduct->getQuantity(), $newProduct->getDescription());
 		$this->shopData->getProductRepository()->addProduct($product);
 
+		$_SESSION['success'] = 'Product added';
 		return new RedirectActionResult('editors/products/index?page=1');
 	}
 
@@ -45,8 +60,17 @@ class ProductsController extends EditorsController {
 		if ($product == null) {
 			throw new \Exception('Product not found');
 		}
+		$categories = $this->shopData->getCategoryRepository()->getCategories();
 
-		return new ViewResult($product, 'Products/Edit.php');
+		$productViewModel = new EditProductViewModel(
+			$id,
+			$product->getName(),
+			$product->getQuantity(),
+			$product->getDescription(),
+			$product->getCategoryId(),
+			$categories
+		);
+		return new ViewResult($productViewModel, 'Products/Edit.php');
 	}
 
 	/**
@@ -54,16 +78,20 @@ class ProductsController extends EditorsController {
 	*@ValidateAntiForgeryToken()
 	*/
 	public function update(UpdateProductBindingModel $updatedProduct) {
+		$id = $updatedProduct->getId();
 		$product = $this->shopData->getProductRepository()->find($id);
-		if ($product == null) {
-			throw new \Exception('Product not found');
+		if ($product == null || !$updatedProduct->isValid()) {
+			$_SESSION['warrning'] = 'Invalid product data';
+			return new RedirectActionResult('editors/products/edit/' . $id);
 		}
 
 		$product->setQuantity($updatedProduct->getQuantity());
 		$product->setDescription($updatedProduct->getDescription());
-		$this->shopData->getProductRepository()->updatedProduct($product);
+		$product->setCategoryId($updatedProduct->getCategoryId());
+		$this->shopData->getProductRepository()->updateProduct($product);
 
-		return new RedirectActionResult('editors/products/index?page=1');
+		$_SESSION['info'] = 'Product edited';
+		return new RedirectActionResult('editors/products/index');
 	}
 
 	/**
@@ -72,7 +100,8 @@ class ProductsController extends EditorsController {
 	*/
 	public function delete($id) {
 		$this->shopData->getProductRepository()->deleteProduct($id);
-		return new RedirectActionResult('editors/products/index?page=1');
+		$_SESSION['info'] = 'Product deleted';
+		return new RedirectActionResult('editors/products/index');
 	}
 }
 

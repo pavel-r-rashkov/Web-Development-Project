@@ -39,6 +39,21 @@ class CategoryRepository extends BaseRepository {
 
 		$result->execute([ $id ]);
 	}
+
+	public function getCategoryByName($name) {
+		$result = $this->db->prepare("
+			SELECT id, name
+			FROM category
+			WHERE name = ?
+		");
+		$result->execute([ $name ]);
+		$data = $result->fetch();
+
+		if (!$data) {
+			return null;
+		}
+		return new Category($data['name'], $data['id']);
+	}
 }
 
 ?>

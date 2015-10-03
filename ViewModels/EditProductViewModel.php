@@ -1,20 +1,22 @@
 <?php
 
-namespace Models;
+namespace ViewModels;
 
-class Product {
+class EditProductViewModel {
 	private $id;
 	private $name;
 	private $quantity;
 	private $description;
 	private $categoryId;
+	private $categories;
 
-	public function __construct($name, $quantity, $description, $categoryId, $id = null) {
+	public function __construct($id, $name, $quantity, $description, $categoryId, $categories) {
 		$this->setId($id);
 		$this->setName($name);
 		$this->setQuantity($quantity);
 		$this->setDescription($description);
 		$this->setCategoryId($categoryId);
+		$this->setCategories($categories);
 	}
 
 	public function getId() {
@@ -30,9 +32,6 @@ class Product {
 	}
 
 	public function setName($value) {
-		// if ($value == null || strlen($value) < 5) {
-		// 	throw new \Exception('Product name must be at least 5 letters long');
-		// }
 		$this->name = $value;
 	}
 
@@ -41,9 +40,6 @@ class Product {
 	}
 
 	public function setQuantity($value) {
-		if ($value < 0) {
-			throw new \Exception('Product quantity cannot be negative');
-		}
 		$this->quantity = $value;
 	}
 
@@ -52,9 +48,6 @@ class Product {
 	}
 
 	public function setDescription($value) {
-		// if ($value == null || strlen($value) < 10) {
-		// 	throw new \Exception('Product description must be at least 10 letters long');
-		// }
 		$this->description = $value;
 	}
 
@@ -64,6 +57,19 @@ class Product {
 
 	public function setCategoryId($value) {
 		$this->categoryId = $value;
+	}
+
+	public function getCategories() {
+		return $this->categories;
+	}
+
+	public function setCategories($value) {
+		$options = array();
+		foreach ($value as $category) {
+			$options[$category->getId()] = $category->getName();
+		}
+
+		$this->categories = $options;
 	}
 }
 

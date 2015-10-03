@@ -8,6 +8,11 @@
 		<div class="alert alert-warning" role="alert">
 		<?php echo $_SESSION['warrning']; ?>
 		</div>
+	<?php } 
+	if (isset($_SESSION['success'])) { ?>
+		<div class="alert alert-success" role="alert">
+		<?php echo $_SESSION['success']; ?>
+		</div>
 	<?php } ?> 
 </section>
 <?php 

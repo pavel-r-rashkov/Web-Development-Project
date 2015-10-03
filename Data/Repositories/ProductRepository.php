@@ -9,20 +9,42 @@ class ProductRepository extends BaseRepository {
 	}
 
 	public function find($id) {
+		$result = $this->db->prepare("
+			SELECT id, name, quantity, description, category_id
+			FROM product
+			WHERE id = ?
+		");
+		$result->execute([ $id ]);
+		$data = $result->fetch();
 
+		if (!$data) {
+			return null;
+		}
+		return new Product($data['name'], $data['quantity'], $data['description'], $data['category_id'], $data['id']);
+	}
+
+	public function getProductsCount() {
+		$result = $this->db->query("
+			SELECT COUNT(*) AS count
+			FROM product
+		");
+		$data = $result->fetch();
+		return $data['count'];
 	}
 
 	public function getProducts($page, $size) {
 		$result = $this->db->prepare("
 			SELECT id, name, quantity, description, category_id
 			FROM product
-			LIMIT ?, ? 
+			LIMIT :skip, :take 
 		");
-
-		$result->execute([ $page * $size, $size ]);
+		$result->bindValue(':skip', intval($page * $size), \PDO::PARAM_INT); 
+		$result->bindValue(':take', intval($size), \PDO::PARAM_INT);
+		$result->execute();
+		$data = $result->fetchAll();
 
 		$products = array();
-		foreach ($result as $row) {
+		foreach ($data as $row) {
 			array_push($products, new Product(
 				$row['name'], 
 				$row['quantity'], 

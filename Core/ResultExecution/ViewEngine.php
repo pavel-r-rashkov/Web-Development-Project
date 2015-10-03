@@ -12,7 +12,7 @@ class ViewEngine implements IViewEngine {
 		$model = $viewResult->getData();
 		$view = ROOT . self::VIEWS_ROOT_DIR . DS . $viewResult->getViewPath();
 		if(!is_null($areaName)) {
-			$view = ROOT . 'Areas' . DS . $areaName . DS . self::VIEWS_ROOT_DIR . DS . $viewResult->getViewPath();
+			$view = ROOT . 'Areas' . DS . ucfirst($areaName) . DS . self::VIEWS_ROOT_DIR . DS . $viewResult->getViewPath();
 		}
 
 		if ($viewResult instanceof ViewResult) {

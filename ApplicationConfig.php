@@ -34,20 +34,17 @@ class ApplicationConfig {
 	public static function routeConfig($routingEngine) {
 		#$routingEngine->registerRoute(new Route(...));
 
-		// $a = new Route('asdf/{aaa}/3/{bbb}/{g}', 'SomeController', 'someAction');
-		// $routingEngine->registerRoute($a);
+		$routingEngine->registerRoute(new Route('editors/{controller}/{action}', '{controller}', '{action}', 'Editors'));
+		$routingEngine->registerRoute(new Route('editors/{controller}/{action}/{id}', '{controller}', '{action}', 'Editors'));
+
+		$routingEngine->registerRoute(new Route('administrators/{controller}/{action}', '{controller}', '{action}', 'Administrators'));
+		$routingEngine->registerRoute(new Route('administrators/{controller}/{action}/{id}', '{controller}', '{action}', 'Administrators'));
 
 		$b = new Route('{controller}/{action}', '{controller}', '{action}');
 		$routingEngine->registerRoute($b);
 
 		$c = new Route('{controller}/{action}/{id}', '{controller}', '{action}');
 		$routingEngine->registerRoute($c);
-
-		$routingEngine->registerRoute(new Route('editors/{controller}/{action}', '{controller}', '{action}', 'Editors'));
-		$routingEngine->registerRoute(new Route('editors/{controller}/{action}/{id}', '{controller}', '{action}', 'Editors'));
-
-		$routingEngine->registerRoute(new Route('administrators/{controller}/{action}', '{controller}', '{action}', 'Administrators'));
-		$routingEngine->registerRoute(new Route('administrators/{controller}/{action}/{id}', '{controller}', '{action}', 'Administrators'));
 	}
 
 	public static function registerBindings($container) {

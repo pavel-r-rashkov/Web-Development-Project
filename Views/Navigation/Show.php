@@ -8,13 +8,13 @@ use Core\HtmlHelpers\Html;
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<li><?php echo Html::link('sells/index', 'Sells') ?></li>
-				<li><?php echo Html::link('possessions/index', 'My products') ?></li>
+				<li><?php echo Html::link('possessions/index', 'My possessions') ?></li>
 				<li><?php echo Html::link('promotions/newpromotion', 'Create promotion') ?></li>
 				<?php if (!$model->getIsEditor() && !$model->getIsAdmin()) { ?> 
 					<li><?php echo Html::link('sells/newsell', 'Create sell') ?></li>
 				<?php } ?>
 				<?php if ($model->getIsEditor() || $model->getIsAdmin()) { ?> 
-					<li><?php echo Html::link('editors/products/newproduct', 'Add product') ?></li>
+					<li><?php echo Html::link('editors/products/index', 'Products') ?></li>
 				<?php } ?>
 				<?php if ($model->getIsEditor() || $model->getIsAdmin()) { ?> 
 					<li><?php echo Html::link('editors/sells/newsell', 'Create sell') ?></li>

@@ -21,7 +21,15 @@ class Statement {
 		return $this->statement->bindParam($parameter, $variable, $dataType, $length, $driverOptions);
 	}
 
-	public function execute(array $inputParams = array()) {
+	public function bindValue($parameter, $variable, $dataType = \PDO::PARAM_STR) {
+		return $this->statement->bindValue($parameter, $variable, $dataType);
+	}
+
+	public function execute(array $inputParams = null) {
+		if($inputParams == null) {
+			$this->statement->execute();
+			return;
+		}
 		$this->statement->execute($inputParams);
 	}
 }

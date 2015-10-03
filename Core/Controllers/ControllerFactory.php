@@ -9,7 +9,7 @@ class ControllerFactory implements IControllerFactory {
 		if (is_null($area)) {
 			$class = 'Controllers\\' . ucfirst($controllerName) . 'Controller';	
 		} else {
-			$class = 'Areas\\' . $area . '\\Controllers\\' . $controllerName;
+			$class = 'Areas\\' . $area . '\\Controllers\\' . ucfirst($controllerName) . 'Controller';
 		}
 
 		if (class_exists($class)) {

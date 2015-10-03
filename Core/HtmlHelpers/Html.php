@@ -77,8 +77,9 @@ class Html {
 		return $tag->getHtml();
 	}
 
-	public static function textarea($name, $content = null, $placeholder = '', $rows = 4, $cols = 50) {
+	public static function textarea($class, $name, $content = null, $placeholder = '', $rows = 4, $cols = 50) {
 		$attributes = array(
+				'class' => $class,
 				'name' => $name, 
 				'placeholder' => $placeholder,
 				'rows' => $rows,
@@ -106,6 +107,20 @@ class Html {
 		return $tag->getHtml();
 	}
 
+	public static function number($class, $name, $value) {
+		$attributes = array(
+				'class' => $class,
+				'type' => 'number',
+				'name' => $name, 
+				'value' => $value);
+
+		$tag = new Tag(
+			'input',
+			$attributes,
+			null);
+		return $tag->getHtml();
+	}
+
 	public static function submit($class, $value) {
 		$attributes = array(
 				'class' => $class,
@@ -119,15 +134,20 @@ class Html {
 		return $tag->getHtml();
 	}
 
-	public static function select($name, $options) {
-		$attributes = array('name' => $name);
+	public static function select($name, $options, $class, $selected = null) {
+		$attributes = array('name' => $name, 'class' => $class);
 		$optionsHtml = '';
 
 		foreach ($options as $key => $value) {
+			$optionAttributes = array('value' => $key);
+			if ($selected != null && $key == $selected) {
+				$optionAttributes['selected'] = '';
+			}
+
 			$option = new Tag(
 				'option', 
-				array('value' => $key), 
-				$value);
+				$optionAttributes,
+				htmlspecialchars($value));
 
 			$optionsHtml = $optionsHtml . $option->getHtml();
 		}
@@ -184,9 +204,10 @@ class Html {
 		return '</form>';
 	}
 
-	public static function link($route, $content) {
+	public static function link($route, $content, $class = '') {
 		$attributes = array(
-				'href' => APP_ROOT_URL . $route);
+				'href' => APP_ROOT_URL . $route,
+				'class' => $class);
 
 		$tag = new Tag(
 			'a',
@@ -221,6 +242,33 @@ class Html {
 			$attributes,
 			null);
 		return $tag->getHtml();
+	}
+
+	public static function pager($target, $path, $size, $count, $page) {
+		$route = $path . '?page=';
+		$html = '';
+
+		if ($page > 0) {
+			$first = new Tag('li', array(), self::link($route . '0', '<span aria-hidden="true">&laquo;</span>'));
+			$prev = new Tag('li', array(), self::link($route . ($page - 1), '<span aria-hidden="true">&lt;</span>'));
+			$prevPage = new Tag('li', array(), self::link($route . ($page - 1), $page));
+			$html = $html . $first->getHtml() . $prev->getHtml() . $prevPage->getHtml();
+		}
+
+		$current = new Tag('li', array('class' => 'active'), self::link($route . $page, $page + 1));
+		$html = $html . $current->getHtml();
+
+		$lastPageNumber = ceil($count / $size) - 1;
+		if ($page < $lastPageNumber) {
+			$nextPage = new Tag('li', array(), self::link($route . ($page + 1), $page + 2));
+			$next = new Tag('li', array(), self::link($route . ($page + 1), '<span aria-hidden="true">&gt;</span>'));
+			$last = new Tag('li', array(), self::link($route . $lastPageNumber, '<span aria-hidden="true">&raquo;</span>'));
+			$html = $html . $nextPage->getHtml() . $next->getHtml() . $last->getHtml();
+		}
+
+		$ul = new Tag('ul', array('class' => 'pagination'), $html);
+		$nav = new Tag('nav', array('data-replace-target' => $target, 'data-pager' => ''), $ul->getHtml());
+		return $nav->getHtml();
 	}
 
 	public static function renderAction($controllerName, $actionName, $params = array(), $areaName = null) {

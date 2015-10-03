@@ -20,14 +20,15 @@ class RoleRepository extends BaseRepository {
 		");
 
 		$result->execute([ $userId ]);
-		
+		$data = $result->fetchAll();
+
 		$roles = array();
-		foreach ($result as $row) {
+		foreach ($data as $row) {
 			array_push($roles, new Role(
 				$row['name'], 
 				$row['id']));
 		}
-
+	
 		return $roles;
 	}
 }
