@@ -8,13 +8,15 @@ class Comment {
 	private $commentDate;
 	private $userId;
 	private $productId;
+	private $username;
 
-	public function __construct($content, $commentDate, $userId, $productId, $id = null) {
+	public function __construct($content, $commentDate, $userId, $productId, $id = null, $username = null) {
 		$this->setId($id);
 		$this->setContent($content);
-		$this->setCommentDate($commendDate);
+		$this->setCommentDate($commentDate);
 		$this->setUserId($userId);
 		$this->setProductId($productId);
+		$this->setUsername($username);
 	}
 
 	public function getId() {
@@ -30,14 +32,11 @@ class Comment {
 	}
 
 	public function setContent($value) {
-		if ($value == null || strlen($value) > 150) {
-			throw new \Exception('Review must be less than 150 letters');
-		}
 		$this->content = $value;
 	}
 
 	public function getCommentDate() {
-		return $this->commendDate;
+		return $this->commentDate;
 	}
 
 	public function setCommentDate($value) {
@@ -58,6 +57,14 @@ class Comment {
 
 	public function setProductId($value) {
 		$this->productId = $value;
+	}
+
+	public function getUsername() {
+		return $this->username;
+	}
+
+	public function setUsername($value) {
+		$this->username = $value;
 	}
 }
 

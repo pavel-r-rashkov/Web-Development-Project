@@ -12,11 +12,12 @@ class ActionResultHandler {
 	}
 
 	public function handleResult($actionResult) {
-		$this->populateResponseHeaders($actionResult);
+		#$this->populateResponseHeaders($actionResult);
 
 		if(is_subclass_of($actionResult, 'Core\ResultExecution\ActionResults\BaseViewResult')) {
 			$this->viewEngine->renderViewResult($actionResult, $this->areaName);
 		} else {
+			$this->populateResponseHeaders($actionResult);
 			echo $actionResult->getData();
 		}
 	}

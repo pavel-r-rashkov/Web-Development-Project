@@ -1,6 +1,6 @@
 <?php
 
-namespace BindingModels;
+namespace BindingModels\Sells;
 
 class CreateSellBindingModel {
 	private $productId;

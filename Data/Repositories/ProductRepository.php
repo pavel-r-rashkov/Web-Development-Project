@@ -10,9 +10,11 @@ class ProductRepository extends BaseRepository {
 
 	public function find($id) {
 		$result = $this->db->prepare("
-			SELECT id, name, quantity, description, category_id
-			FROM product
-			WHERE id = ?
+			SELECT p.id, p.name, p.quantity, p.description, p.category_id, c.name AS category_name
+			FROM product p
+			JOIN category c
+				ON c.id = p.category_id
+			WHERE p.id = ?
 		");
 		$result->execute([ $id ]);
 		$data = $result->fetch();
@@ -20,7 +22,8 @@ class ProductRepository extends BaseRepository {
 		if (!$data) {
 			return null;
 		}
-		return new Product($data['name'], $data['quantity'], $data['description'], $data['category_id'], $data['id']);
+		return new Product($data['name'], $data['quantity'], $data['description'], 
+			$data['category_id'], $data['id'], $data['category_name']);
 	}
 
 	public function getProductsCount() {
@@ -32,11 +35,34 @@ class ProductRepository extends BaseRepository {
 		return $data['count'];
 	}
 
-	public function getProducts($page, $size) {
+	public function getAllProducts() {
 		$result = $this->db->prepare("
 			SELECT id, name, quantity, description, category_id
 			FROM product
-			LIMIT :skip, :take 
+		");
+
+		$result->execute();
+		$data = $result->fetchAll();
+		$products = array();
+		foreach ($data as $row) {
+			array_push($products, new Product(
+				$row['name'], 
+				$row['quantity'], 
+				$row['description'], 
+				$row['category_id'], 
+				$row['id']));
+		}
+
+		return $products;
+	}
+
+	public function getProducts($page, $size) {
+		$result = $this->db->prepare("
+			SELECT p.id, p.name, p.quantity, p.description, p.category_id, c.name AS category_name
+			FROM product p
+			JOIN category c
+				ON c.id = p.category_id
+			LIMIT :skip, :take
 		");
 		$result->bindValue(':skip', intval($page * $size), \PDO::PARAM_INT); 
 		$result->bindValue(':take', intval($size), \PDO::PARAM_INT);
@@ -50,7 +76,8 @@ class ProductRepository extends BaseRepository {
 				$row['quantity'], 
 				$row['description'], 
 				$row['category_id'], 
-				$row['id']));
+				$row['id'],
+				$row['category_name']));
 		}
 
 		return $products;
@@ -96,6 +123,30 @@ class ProductRepository extends BaseRepository {
 		");
 
 		$result->execute([ $productId ]);
+	}
+
+	public function getUserProducts($id) {
+		$result = $this->db->prepare("
+			SELECT p.id, p.name, p.quantity, p.description, p.category_id
+			FROM product p
+			JOIN possession pos
+				ON pos.product_id = p.id
+			WHERE pos.owner_id = ?
+		");
+
+		$result->execute([ $id ]);
+		$data = $result->fetchAll();
+		$products = array();
+		foreach ($data as $row) {
+			array_push($products, new Product(
+				$row['name'], 
+				$row['quantity'], 
+				$row['description'], 
+				$row['category_id'], 
+				$row['id']));
+		}
+
+		return $products;
 	}
 }
 

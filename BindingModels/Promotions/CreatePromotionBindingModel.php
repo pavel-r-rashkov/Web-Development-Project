@@ -1,6 +1,6 @@
 <?php
 
-namespace BindingModels;
+namespace BindingModels\Promotions;
 
 class CreatePromotionBindingModel {
 	private $name;
@@ -70,8 +70,9 @@ class CreatePromotionBindingModel {
 	public function isValid() {
 		$validName = strlen($this->name) >= 5 && strlen($this->name) < 50;
 		$validDiscount = $this->discount > 0 && $this->discount < 1;
-		$validStartDate = true;
-		$validEndDate = false;
+		$validStartDate = strtotime($this->startDate) <= strtotime($this->endDate);
+		$validEndDate = strtotime($this->endDate) >= getdate()[0];
+	
 		return $validName && $validDiscount && $validStartDate && $validEndDate;
 	}
 }

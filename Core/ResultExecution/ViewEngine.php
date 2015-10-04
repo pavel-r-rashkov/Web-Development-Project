@@ -54,10 +54,6 @@ class ViewEngine implements IViewEngine {
 	public function trust($value) {
 		echo $value;
 	}
-
-	// public static function view() {
-	// 	include_once($view);
-	// }
 }
 
 ?>

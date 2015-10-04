@@ -4,7 +4,7 @@ namespace Core\Annotations;
 
 class AnnotationHelper {
 	const EXTRACT_ANNOTATIONS_PATTERN = '/@([^\(]+?)\(([^)]*?)\)/i';
-	const ANNOTATION_PARAM_DELIMITER = ', ';
+	const ANNOTATION_PARAM_DELIMITER = ',';
 	private $annotationFactory;
 
 	public function __construct(AnnotationFactory $annotationFactory) {

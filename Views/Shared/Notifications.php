@@ -18,4 +18,5 @@
 <?php 
 unset($_SESSION['info']);
 unset($_SESSION['warrning']);
+unset($_SESSION['success']);
 ?>

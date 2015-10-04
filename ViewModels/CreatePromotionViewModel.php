@@ -4,7 +4,7 @@ namespace ViewModels;
 
 class CreatePromotionViewModel {
 	private $userCriterias;
-	private $products
+	private $products;
 	private $categories;
 
 	public function __construct($userCriterias, $products, $categories) {
@@ -18,23 +18,35 @@ class CreatePromotionViewModel {
 	}
 	
 	public function setUserCriterias($value) {
-		$this->userCriterias = $value;
+		$options = array(0 => 'No user restriction');
+		foreach ($value as $criteria) {
+			$options[$criteria->getId()] = $criteria->getName();
+		}
+		$this->userCriterias = $options;
 	}
 
 	public function getProducts() {
-		return $this->userCriterias;
+		return $this->products;
 	}
 
 	public function setProducts($value) {
-		$this->userCriterias = $value;
+		$options = array(0 => 'No product restriction');
+		foreach ($value as $product) {
+			$options[$product->getId()] = $product->getName();
+		}
+		$this->products = $options;
 	}
 
 	public function getCategories() {
-		return $this->userCriterias;
+		return $this->categories;
 	}
 
 	public function setCategories($value) {
-		$this->userCriterias = $value;
+		$options = array(0 => 'No category restriction');
+		foreach ($value as $category) {
+			$options[$category->getId()] = $category->getName();
+		}
+		$this->categories = $options;
 	}
 }
 

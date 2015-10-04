@@ -4,11 +4,14 @@ namespace Controllers;
 use Data\Contracts\IShopData;
 use Core\ResultExecution\ActionResults\ViewResult;
 use Core\ResultExecution\ActionResults\RedirectActionResult;
-use BindingModels\CreatePromotionBindingModel;
+use BindingModels\Promotions\CreatePromotionBindingModel;
 use Models\Promotion;
 use ViewModels\CreatePromotionViewModel;
 use Core\Contracts\IRoleProvider;
 
+/**
+*@AuthenticateUser()
+*/
 class PromotionsController extends BaseController {
 	private $roleProvider;
 
@@ -19,8 +22,8 @@ class PromotionsController extends BaseController {
 
 	public function newPromotion() {
 		$criterias = $this->shopData->getUserCriteriaRepository()->getUserCriterias();
-		$products = $this->shopData->getProductRepository()->getProducts();
-		$categories = $this->shopData->getCategories()->getCategories();
+		$products = $this->shopData->getProductRepository()->getAllProducts();
+		$categories = $this->shopData->getCategoryRepository()->getCategories();
 		$viewModel = new CreatePromotionViewModel($criterias, $products, $categories);
 
 		return new ViewResult($viewModel, 'Promotions/NewPromotion.php');
@@ -32,6 +35,7 @@ class PromotionsController extends BaseController {
 	*/
 	public function create(CreatePromotionBindingModel $newPromotion) {
 		if ($newPromotion == null || !$newPromotion->isValid()) {
+			$_SESSION['warrning'] = 'Invalid promotion data';
 			return new RedirectActionResult('promotions/newpromotion');
 		}
 
@@ -40,10 +44,10 @@ class PromotionsController extends BaseController {
 			$newPromotion->getStartDate(),
 			$newPromotion->getEndDate(),
 			$newPromotion->getDiscount(),
-			$newPromotion->getUserCriteriaId(),
+			$newPromotion->getUserCriteriaId() == 0 ? null : $newPromotion->getUserCriteriaId(),
 			null,
-			$newPromotion->getProductId(),
-			$newPromotion->getCategoryId());
+			$newPromotion->getProductId() == 0 ? null : $newPromotion->getProductId(),
+			$newPromotion->getCategoryId() == 0 ? null : $newPromotion->getCategoryId());
 
 		$userId = $this->currentUser();
 		if (!$this->roleProvider->isAdmin($userId) && !$this-roleProvider()->isEditor($userId)) {
@@ -51,7 +55,7 @@ class PromotionsController extends BaseController {
 		}
 		
 		$this->shopData->getPromotionRepository()->addPromotion($promotion);
-		return new RedirectActionResult('sells/index');
+		return new RedirectActionResult('home/index');
 	}
 }
 

@@ -30,6 +30,18 @@ class ShopData implements IShopData {
 		$this->db = Database::getInstance(DatabaseConfig::DB_INSTANCE);
 	}
 
+	public function beginTran() {
+		return $this->db->beginTran();
+	}
+
+	public function commitTran() {
+		return $this->db->commitTran();
+	}
+
+	public function rollBack() {
+		return $this->db->rollBack();
+	}
+
 	public function getCategoryRepository() {
 		if ($this->categoryRepository == null) {
 			$this->categoryRepository = new CategoryRepository($this->db);

@@ -8,16 +8,18 @@ use Core\HtmlHelpers\Html;
 		<th>Name</th>
 		<th>Quantity</th>
 		<th>Category</th>
+		<th></th>
+		<th></th>
 	</tr>
 	<?php foreach($model->getProducts() as $product) { ?>
 		<tr>
 			<td><?php ViewEngine::show($product->getName()) ?></td>
 			<td><?php ViewEngine::show($product->getQuantity()) ?></td>
-			<td><?php #ViewEngine::show($product->getCategory()->getName()) ?></td>
+			<td><?php ViewEngine::show($product->getCategoryName()) ?></td>
 			<td><?php echo Html::link('editors/products/edit/' . $product->getId(), 'Edit product', 'btn btn-warning') ?></td>
 			<td>
 				<?php echo Html::form('post', 'editors/products/delete/' . $product->getId());
-				echo Html::submit('btn btn-danger', 'Delete product', 'btn btn-danger');
+				echo Html::submit('btn btn-danger', 'Delete product');
 				echo Html::csrfToken();
 				echo Html::formClose(); ?>
 			</td>

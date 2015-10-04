@@ -8,13 +8,18 @@ class Sell {
 	private $productId;
 	private $quantity;
 	private $price;
+	private $product;
+	private $discount;
 
-	public function __construct($ownerId, $productId, $quantity, $price, $id = null) {
+	public function __construct($ownerId, $productId, $quantity,
+		$price, $id = null, $product = null, $discount = null) {
 		$this->setId($id);
 		$this->setOwnerId($ownerId);
 		$this->setProductId($productId);
 		$this->setQuantity($quantity);
 		$this->setPrice($price);
+		$this->setProduct($product);
+		$this->setDiscount($discount);
 	}
 
 	public function getId() {
@@ -55,6 +60,22 @@ class Sell {
 
 	public function setPrice($value) {
 		$this->price = $value;
+	}
+
+	public function getProduct() {
+		return $this->product;
+	}
+
+	public function setProduct($value) {
+		$this->product = $value;
+	}
+
+	public function getDiscount() {
+		return $this->discount;
+	}
+
+	public function setDiscount($value) {
+		$this->discount = $value;
 	}
 }
 

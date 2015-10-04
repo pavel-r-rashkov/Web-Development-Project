@@ -30,6 +30,7 @@ class Database {
 		$driver = DriverFactory::createDriver($driver, $user, $pass, $dbName, $host);
 
 		$pdo = new \PDO($driver->getDsn(), $user, $pass);
+		$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
 		self::$instances[$instanceName] = new self($pdo);
 	}
@@ -45,6 +46,18 @@ class Database {
 
 	public function lastId($name = null) {
 		return $this->db->lastInsertedId($name);
+	}
+
+	public function beginTran() {
+		return $this->db->beginTransaction();
+	}
+
+	public function commitTran() {
+		return $this->db->commit();
+	}
+
+	public function rollBack() {
+		return $this->db->rollBack();
 	}
 }
 

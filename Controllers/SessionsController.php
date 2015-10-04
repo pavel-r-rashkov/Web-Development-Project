@@ -12,6 +12,9 @@ class SessionsController extends BaseController {
 		parent::__construct($shopData);
 	}
 
+	/**
+	*@Route(login)
+	*/
 	public function newsession() {
 		if ($this->currentUser() != null) {
 			$_SESSION['warrning'] = 'You are already logged in';
@@ -31,7 +34,14 @@ class SessionsController extends BaseController {
 		}
 
 		$user = $this->shopData->getUserRepository()->getUser($loginData->getUsername());
+
 		if (!Utils::verifyHash($loginData->getPassword(), $user->getPasswordDigest())) {
+			$_SESSION['warrning'] = 'Invalid password / username';
+			return new ViewResult($loginData, 'Sessions/NewSession.php');
+		}
+
+		if ($user->getBanned() == 1) {
+			$_SESSION['warrning'] = 'You are banned';
 			return new ViewResult($loginData, 'Sessions/NewSession.php');
 		}
 
@@ -42,9 +52,7 @@ class SessionsController extends BaseController {
 	}
 
 	public function destroy() {
-		unset($_SESSION['userId']);
-		unset($_SESSION['username']);
-
+		session_destroy();
 		return new RedirectActionResult('sessions/newsession');
 	}
 

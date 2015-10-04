@@ -1,6 +1,5 @@
 <?php
 
-#namespace Config;
 use Core\BindOptions;
 use Core\Routing\Route;
 use Data\Config\Database;
@@ -14,7 +13,6 @@ class ApplicationConfig {
 	}
 
 	public static function registerAreas($appManager) {
-		$appManager->registerArea('TestArea');
 		$appManager->registerArea('Editors');
 		$appManager->registerArea('Administrators');
 	}
@@ -40,11 +38,8 @@ class ApplicationConfig {
 		$routingEngine->registerRoute(new Route('administrators/{controller}/{action}', '{controller}', '{action}', 'Administrators'));
 		$routingEngine->registerRoute(new Route('administrators/{controller}/{action}/{id}', '{controller}', '{action}', 'Administrators'));
 
-		$b = new Route('{controller}/{action}', '{controller}', '{action}');
-		$routingEngine->registerRoute($b);
-
-		$c = new Route('{controller}/{action}/{id}', '{controller}', '{action}');
-		$routingEngine->registerRoute($c);
+		$routingEngine->registerRoute(new Route('{controller}/{action}', '{controller}', '{action}'));
+		$routingEngine->registerRoute(new Route('{controller}/{action}/{id}', '{controller}', '{action}'));
 	}
 
 	public static function registerBindings($container) {

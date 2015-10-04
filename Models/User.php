@@ -7,12 +7,16 @@ class User {
 	private $username;
 	private $passwordDigest;
 	private $money;
+	private $registerDate;
+	private $banned;
 
-	public function __construct($username, $passwordDigest, $money, $id = null) {
+	public function __construct($username, $passwordDigest, $money, $id = null, $registerDate = null, $banned = false) {
 		$this->setId($id);
 		$this->setUsername($username);
 		$this->setPasswordDigest($passwordDigest);
 		$this->setMoney($money);
+		$this->setRegisterDate($registerDate);
+		$this->setBanned($banned);
 	}
 
 	public function getId() {
@@ -51,6 +55,22 @@ class User {
 
 	public function setMoney($value) {
 		$this->money = $value;
+	}
+
+	public function getRegisterDate() {
+		return $this->registerDate;
+	}
+
+	public function setRegisterDate($value) {
+		$this->registerDate = $value;
+	}
+
+	public function getBanned() {
+		return $this->banned;
+	}
+
+	public function setBanned($value) {
+		$this->banned = $value;
 	}
 }
 

@@ -16,10 +16,11 @@ class NavigationController extends BaseController {
 	}
 
 	public function show() {
+		$id = $this->currentUser();
 		$isAdmin = $this->roleProvider->isAdmin($this->currentUser());
 		$isEditor = $this->roleProvider->isEditor($this->currentUser());
 		$username = $this->getUsername();
-		$navModel = new NavigationViewModel($isAdmin, $isEditor, $username);
+		$navModel = new NavigationViewModel($id, $isAdmin, $isEditor, $username);
 
 		return new PartialViewResult($navModel, 'Navigation/Show.php');
 	}

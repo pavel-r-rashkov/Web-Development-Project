@@ -6,6 +6,9 @@ use Data\Contracts\IShopData;
 use Core\ResultExecution\ActionResults\PartialViewResult;
 use Core\ResultExecution\ActionResults\RedirectActionResult;
 
+/**
+*@AuthenticateUser()
+*/
 class CategoriesController extends BaseController {
 	public function __construct(IShopData $shopData) {
 		parent::__construct($shopData);

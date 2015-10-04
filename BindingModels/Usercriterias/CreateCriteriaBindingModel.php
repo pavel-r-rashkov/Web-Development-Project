@@ -1,6 +1,6 @@
 <?php
 
-namespace BindingModels;
+namespace BindingModels\Usercriterias;
 
 class CreateCriteriaBindingModel {
 	private $name;

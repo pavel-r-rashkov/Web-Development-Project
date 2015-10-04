@@ -15,6 +15,9 @@ class UsersController extends BaseController {
 		parent::__construct($shopData);
 	}
 
+	/**
+	*@Route(register)
+	*/
 	public function newUser() {
 		if ($this->currentUser() != null) {
 			$_SESSION['warrning'] = 'You need to log out first';
@@ -47,6 +50,8 @@ class UsersController extends BaseController {
 
 		$hashed = Utils::digestPass($newUser->getPassword());
 		$user = new User($newUser->getUsername(), $hashed, self::INITIAL_CASH);
+		$user->setBanned(false);
+		$user->setRegisterDate(date("Y-m-d"));
 		$this->shopData->getUserRepository()->addUser($user);		
 
 		return new RedirectActionResult('sessions/newsession');

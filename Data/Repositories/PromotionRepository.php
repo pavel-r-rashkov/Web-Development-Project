@@ -1,6 +1,6 @@
 <?php
 
-namespace Data\Repository;
+namespace Data\Repositories;
 use Models\Promotion;
 
 class PromotionRepository extends BaseRepository {
@@ -25,10 +25,6 @@ class PromotionRepository extends BaseRepository {
 			$promotion->getCategoryId()
 		]);
 	}
-
-	// public function getSellPromotions($sellId) {
-
-	// }
 }
 
 ?>

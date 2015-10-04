@@ -10,7 +10,7 @@ use Core\ResultExecution\ViewEngine;
 <div class="form-group">
 <?php
 echo Html::label('name', 'Name:'); 
-echo Html::inputField('form-control', 'name', $model->getName(), 'Enter product name...');
+echo Html::inputField('form-control', 'name', '', 'Enter product name...');
 ?>
 </div>
 <div class="form-group">
@@ -22,7 +22,13 @@ echo Html::number('form-control', 'quantity', 0);
 <div class="form-group">
 <?php 
 echo Html::label('description', 'Description:');
-echo Html::textarea('form-control', 'description', $model->getDescription(), 'Enter description...'); 
+echo Html::textarea('form-control', 'description', '', 'Enter description...'); 
+?>
+</div>
+<div class="form-group">
+<?php 
+echo Html::label('categoryId', 'Category:');
+echo Html::select('categoryId', $model->getCategories(), 'form-control');
 ?>
 </div>
 <div class="form-group">

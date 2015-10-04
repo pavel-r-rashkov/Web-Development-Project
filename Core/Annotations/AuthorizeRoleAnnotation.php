@@ -21,7 +21,7 @@ class AuthorizeRoleAnnotation extends AuthorizeAnnotation {
 		$userId = $_SESSION['userId'];
 		$userRoles = $roleProvider->getUserRoles($userId);
 
-		if (count(array_intersect($userRoles, $this->allowedRoles)) != count($this->allowedRoles)) {
+		if (count(array_intersect($userRoles, $this->allowedRoles)) == 0) {
 			http_response_code(403);
 			die;
 		}

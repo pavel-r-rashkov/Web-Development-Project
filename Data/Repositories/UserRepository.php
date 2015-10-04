@@ -16,38 +16,34 @@ class UserRepository extends BaseRepository {
 		");
 
 		$result->execute([ $userId ]);
+		$data = $result->fetch();
 		$user = new User( 
-			$result[0]['username'], 
-			$result[0]['password_digest'], 
-			$result[0]['money'], 
-			$result[0]['id']);
+			$data['username'], 
+			$data['password_digest'], 
+			$data['money'], 
+			$data['id']);
 
 		return $user;
 	}
 
-	public function addMoney($userId, $amount) {
+	public function updateUser(User $user) {
 		$result = $this->db->prepare("
 			UPDATE user
-			SET money = money + ?,
+			SET money = ?,
+				banned = ?
 			WHERE id = ?
 		");
 
-		$result->execute([ $amount, $userId ]);
-	}
-
-	public function takeMoney($userId, $amount) {
-		$result = $this->db->prepare("
-			UPDATE user
-			SET money = money - ?,
-			WHERE id = ?
-		");
-
-		$result->execute([ $amount, $userId ]);
+		$result->execute([ 
+			$user->getMoney(),
+			$user->getBanned(),
+			$user->getId()
+		]);
 	}
 
 	public function getUser($username) {
 		$result = $this->db->prepare("
-			SELECT id, username, password_digest, money
+			SELECT id, username, password_digest, money, register_date, banned
 			FROM user
 			WHERE username = ?
 		");
@@ -57,16 +53,56 @@ class UserRepository extends BaseRepository {
 		if (!$data) {
 			return null;
 		}
-		return new User($data['username'], $data['password_digest'], $data['money'], $data['id']);
+		return new User(
+			$data['username'], 
+			$data['password_digest'], 
+			$data['money'], 
+			$data['id'],
+			$data['register_date'],
+			$data['banned']);
 	}
 
 	public function addUser(User $user) {
 		$result = $this->db->prepare("
-			INSERT INTO user(username, password_digest, money)
-			VALUES(?, ?, ?);
+			INSERT INTO user(username, password_digest, money, banned)
+			VALUES(?, ?, ?, ?);
 		");
 
-		$result->execute([ $user->getUsername(), $user->getPasswordDigest(), $user->getMoney() ]);
+		$result->execute([ $user->getUsername(), $user->getPasswordDigest(), $user->getMoney(), $user->getBanned() ]);
+	}
+
+	public function getUsers($page, $size) {
+		$result = $this->db->prepare("
+			SELECT id, username, password_digest, money, banned, register_date
+			FROM user
+			LIMIT :skip, :take
+		");
+		$result->bindValue(':skip', intval($page * $size), \PDO::PARAM_INT); 
+		$result->bindValue(':take', intval($size), \PDO::PARAM_INT);
+		$result->execute();
+		$data = $result->fetchAll();
+
+		$users = array();
+		foreach ($data as $row) {
+			array_push($users, new User(
+				$row['username'], 
+				$row['password_digest'], 
+				$row['money'],
+				$row['id'],
+				$row['register_date'],
+				$row['banned']));
+		}
+
+		return $users;
+	}
+
+	public function getUsersCount() {
+		$result = $this->db->query("
+			SELECT COUNT(*) AS count
+			FROM user
+		");
+		$data = $result->fetch();
+		return $data['count'];
 	}
 }
 

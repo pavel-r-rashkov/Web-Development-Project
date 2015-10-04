@@ -8,6 +8,9 @@ use Core\ResultExecution\ActionResults\PartialViewResult;
 use Core\ResultExecution\ActionResults\RedirectActionResult;
 use Models\Category;
 
+/**
+*@AuthorizeRole(Admin,Editor)
+*/
 class CategoriesController extends EditorsController {
 	public function __construct(IShopData $shopData) {
 		parent::__construct($shopData);

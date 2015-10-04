@@ -14,7 +14,7 @@ class CommentRepository extends BaseRepository {
 			VALUES(?, ?, ?, ?)
 		");
 
-		$result->execute([ $comment->getCommentDate(), $comment->getContent(), $comment->getUserId(), $comment->productId() ]);
+		$result->execute([ $comment->getCommentDate(), $comment->getContent(), $comment->getUserId(), $comment->getProductId() ]);
 	}
 
 	public function deleteComment($id) {
@@ -26,20 +26,29 @@ class CommentRepository extends BaseRepository {
 		$result->execute([ $id ]);
 	}
 
-	// public function getProductComments($productId) {
-	// 	$result = $this->db->prepare("
-	// 		SELECT id, comment_date, content, user_id, product_id
-	// 		FROM comment
-	// 		WHERE product_id = ?
-	// 	");
-	// 	$result->execute([ $productId ]);
-	// 	$comments = array();
-	// 	foreach ($result as $row) {
-	// 		array_push($categories, new Category($row['name'], $row['id']));
-	// 	}
+	public function getProductComments($productId) {
+		$result = $this->db->prepare("
+			SELECT c.id, c.comment_date, c.content, c.user_id, c.product_id, u.username
+			FROM comment c
+			JOIN user u
+				ON c.user_id = u.id
+			WHERE c.product_id = ?
+		");
+		$result->execute([ $productId ]);
+		$data = $result->fetchAll();
+		$comments = array();
+		foreach ($data as $row) {
+			array_push($comments, new Comment(
+				$row['content'], 
+				$row['comment_date'],
+				$row['user_id'],
+				$row['product_id'],
+				$row['id'],
+				$row['username']));
+		}
 
-	// 	return $categories;
-	// }
+		return $comments;
+	}
 }
 
 ?>

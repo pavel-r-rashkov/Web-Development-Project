@@ -12,7 +12,7 @@ class UserCriteria {
 		$this->setId($id);
 		$this->setName($name);
 		$this->setMinimumDaysRegistered($minimumDaysRegistered);
-		$this->setMminimumCash($minimumCash);
+		$this->setMinimumCash($minimumCash);
 	}
 
 	public function getId() {

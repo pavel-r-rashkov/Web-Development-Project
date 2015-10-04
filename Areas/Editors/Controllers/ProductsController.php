@@ -9,9 +9,13 @@ use Core\ResultExecution\ActionResults\ViewResult;
 use Core\ResultExecution\ActionResults\PartialViewResult;
 use Core\ResultExecution\ActionResults\RedirectActionResult;
 use Models\Product;
+use ViewModels\CreateProductViewModel;
 use ViewModels\ProductsViewModel;
 use ViewModels\EditProductViewModel;
 
+/**
+*@AuthorizeRole(Admin,Editor)
+*/
 class ProductsController extends EditorsController {
 	const PAGE_SIZE = 10;
 
@@ -35,7 +39,9 @@ class ProductsController extends EditorsController {
 	}
 
 	public function newProduct() {
-		return new ViewResult(new CreateProductBindingModel(), 'Products/NewProduct.php');
+		$categories = $this->shopData->getCategoryRepository()->getCategories();
+		$viewModel = new CreateProductViewModel($categories);
+		return new ViewResult($viewModel, 'Products/NewProduct.php');
 	}
 
 	/**
@@ -45,14 +51,18 @@ class ProductsController extends EditorsController {
 	public function create(CreateProductBindingModel $newProduct) {
 		if ($newProduct == null || !$newProduct->isValid()) {
 			$_SESSION['warrning'] = 'Invalid product data';
-			return new ViewResult($newProduct, 'Products/NewProduct.php');
+			return new RedirectActionResult('editors/products/newproduct');
 		}
 
-		$product = new Product($newProduct->getName(), $newProduct->getQuantity(), $newProduct->getDescription());
+		$product = new Product(
+			$newProduct->getName(), 
+			$newProduct->getQuantity(), 
+			$newProduct->getDescription(),
+			$newProduct->getCategoryId());
 		$this->shopData->getProductRepository()->addProduct($product);
 
 		$_SESSION['success'] = 'Product added';
-		return new RedirectActionResult('editors/products/index?page=1');
+		return new RedirectActionResult('editors/products/index');
 	}
 
 	public function edit($id) {

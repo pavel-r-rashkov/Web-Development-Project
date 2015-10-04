@@ -6,6 +6,7 @@ class CreateProductBindingModel {
 	private $name;
 	private $quantity;
 	private $description;
+	private $categoryId;
 
 	public function getName() {
 		return $this->name;
@@ -31,10 +32,18 @@ class CreateProductBindingModel {
 		$this->description = $value;
 	}
 
+	public function getCategoryId() {
+		return $this->categoryId;
+	}
+
+	public function setCategoryId($value) {
+		$this->categoryId = $value;
+	}
+
 	public function isValid() {
-		$validName = $this->name != null && strlen($value) >= 5;
+		$validName = $this->name != null && strlen($this->name) >= 5;
 		$validQuantity = $this->quantity >= 0;
-		$valudDescription = $this->description != null && strlen($this->description) >= 10;
+		$validDescription = $this->description != null && strlen($this->description) >= 10;
 		return $validName && $validQuantity && $validDescription;
 	}
 }

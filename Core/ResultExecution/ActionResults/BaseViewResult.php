@@ -6,10 +6,7 @@ abstract class BaseViewResult extends BaseActionResult {
 	private $viewPath;
 
 	public function __construct($model, $viewPath) {
-		$headers = array(
-				'Content-Type: text/html'
-			);
-		parent::__construct($headers, $model);
+		parent::__construct(array(), $model);
 		$this->viewPath = $viewPath;
 	}
 

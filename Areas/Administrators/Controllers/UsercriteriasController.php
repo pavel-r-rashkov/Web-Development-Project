@@ -2,18 +2,21 @@
 
 namespace Areas\Administrators\Controllers;
 use Data\Contracts\IShopData;
-use BindingModels\UserCriterias\CreateCriteriaBindingModel;
-use Core\ResultExecution\ActionResults\PartialViewResult;
+use BindingModels\Usercriterias\CreateCriteriaBindingModel;
+use Core\ResultExecution\ActionResults\ViewResult;
 use Core\ResultExecution\ActionResults\RedirectActionResult;
 use Models\UserCriteria;
 
-class UserCriteriasController extends AdminController {
+/**
+*@AuthorizeRole(Admin)
+*/
+class UsercriteriasController extends AdminController {
 	public function __construct(IShopData $shopData) {
-		parent::($shopData);
+		parent::__construct($shopData);
 	}
 
 	public function newCriteria() {
-		return new ViewResult(new CreateCriteriaBindingModel(), 'UserCriterias/NewCriteria.php');
+		return new ViewResult(new CreateCriteriaBindingModel(), 'Usercriterias/NewCriteria.php');
 	}
 
 	/**
@@ -26,9 +29,10 @@ class UserCriteriasController extends AdminController {
 		}
 
 		$criteria = new UserCriteria(
-			$newcriteria->getName(),
-			$newCriteria->getMinimumDaysRegistered(), 
-			$newCriteria->getMinimumCash());
+			$newCriteria->getName(),
+			$newCriteria->getMinimumDaysRegistered() == 0 ? null : $newCriteria->getMinimumDaysRegistered(), 
+			$newCriteria->getMinimumCash() == 0 ? null : $newCriteria->getMinimumCash());
+
 		$this->shopData->getUserCriteriaRepository()->addUserCriteria($criteria);
 
 		return new RedirectActionResult('administrators/usercriterias/newcriteria');

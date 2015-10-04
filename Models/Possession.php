@@ -7,12 +7,14 @@ class Possession {
 	private $productId;
 	private $ownerId;
 	private $quantity;
+	private $productName;
 
-	public function __construct($productId, $ownerId, $quantity, $id = null) {
+	public function __construct($productId, $ownerId, $quantity, $id = null, $productName = null) {
 		$this->setId($id);
 		$this->setProductId($productId);
 		$this->setOwnerId($ownerId);
 		$this->setQuantity($quantity);
+		$this->setProductName($productName);
 	}
 
 	public function getId() {
@@ -45,6 +47,14 @@ class Possession {
 
 	public function setQuantity($value) {
 		$this->quantity = $value;
+	}
+
+	public function getProductName() {
+		return $this->productName;
+	}
+
+	public function setProductName($value) {
+		$this->productName = $value;
 	}
 }
 

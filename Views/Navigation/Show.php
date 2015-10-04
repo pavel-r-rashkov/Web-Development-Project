@@ -8,22 +8,23 @@ use Core\HtmlHelpers\Html;
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<li><?php echo Html::link('sells/index', 'Sells') ?></li>
-				<li><?php echo Html::link('possessions/index', 'My possessions') ?></li>
+				<li><?php echo Html::link('possessions/index/' . $model->getId(), 'My possessions') ?></li>
 				<li><?php echo Html::link('promotions/newpromotion', 'Create promotion') ?></li>
-				<?php if (!$model->getIsEditor() && !$model->getIsAdmin()) { ?> 
-					<li><?php echo Html::link('sells/newsell', 'Create sell') ?></li>
-				<?php } ?>
+				<li><?php echo Html::link('sells/newsell', 'Create sell') ?></li>
 				<?php if ($model->getIsEditor() || $model->getIsAdmin()) { ?> 
 					<li><?php echo Html::link('editors/products/index', 'Products') ?></li>
 				<?php } ?>
 				<?php if ($model->getIsEditor() || $model->getIsAdmin()) { ?> 
-					<li><?php echo Html::link('editors/sells/newsell', 'Create sell') ?></li>
+					<li><?php echo Html::link('editors/sells/newsell', 'Create Shop sell') ?></li>
 				<?php } ?>
 				<?php if ($model->getIsEditor() || $model->getIsAdmin()) { ?> 
-					<li><?php echo Html::link('editors/categories/newcategory', 'Create product categories') ?></li>
+					<li><?php echo Html::link('editors/categories/newcategory', 'Create category') ?></li>
 				<?php } ?>
 				<?php if ($model->getIsAdmin()) { ?> 
-					<li><?php echo Html::link('administrators/usercriterias/newcirteria', 'Create user criteria') ?></li>
+					<li><?php echo Html::link('administrators/usercriterias/newcriteria', 'Create user criteria') ?></li>
+				<?php } ?>
+				<?php if ($model->getIsAdmin()) { ?> 
+					<li><?php echo Html::link('administrators/users/index', 'Users') ?></li>
 				<?php } ?>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

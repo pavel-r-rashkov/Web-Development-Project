@@ -5,7 +5,6 @@ namespace BindingModels\Comments;
 class CreateCommentBindingModel {
 	private $content;
 	private $productId;
-	private $sellId;
 
 	public function getContent() {
 		return $this->content;
@@ -23,16 +22,8 @@ class CreateCommentBindingModel {
 		$this->productId = $value;
 	}
 
-	public function getSellId() {
-		return $this->sellId;
-	}
-
-	public function setSellId($value) {
-		$this->sellId = $value;
-	}
-
 	public function isValid() {
-		return $this->content != null && strlen($this->content) <= 150;
+		return $this->content != null && strlen($this->content) <= 150 && strlen($this->content) >= 3;
 	}
 }
 

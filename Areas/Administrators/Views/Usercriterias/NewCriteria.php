@@ -10,7 +10,7 @@ use Core\ResultExecution\ViewEngine;
 <div class="form-group">
 <?php
 echo Html::label('name', 'Name:'); 
-echo Html::inputField('form-control', 'name', $model->getName(), 'Enter product name...');
+echo Html::inputField('form-control', 'name', $model->getName(), 'Enter criteria name...');
 ?>
 </div>
 <div class="form-group">
@@ -26,7 +26,7 @@ echo Html::number('form-control', 'minimumCash', $model->getMinimumCash());
 ?>
 </div>
 <div class="form-group">
-<?php echo Html::submit('btn btn-default', 'Add product'); ?>
+<?php echo Html::submit('btn btn-default', 'Add criteria'); ?>
 </div>
 <?php echo Html::csrfToken(); ?>
 

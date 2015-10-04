@@ -8,7 +8,7 @@ class Html {
 	public static function radio($name, $value, $checked = false) {
 		$attributes = array(
 				'name' => $name, 
-				'value' => $value,
+				'value' => htmlspecialchars($value),
 				'type' => 'radio');
 
 		if ($checked) {
@@ -25,7 +25,7 @@ class Html {
 	public static function checkbox($name, $value, $checked = false) {
 		$attributes = array(
 				'name' => $name, 
-				'value' => $value,
+				'value' => htmlspecialchars($value),
 				'type' => 'checkbox');
 
 		if ($checked) {
@@ -54,7 +54,7 @@ class Html {
 		$attributes = array(
 				'class' => $class,
 				'name' => $name, 
-				'value' => $value,
+				'value' => htmlspecialchars($value),
 				'type' => 'text',
 				'placeholder' => $placeholder);
 
@@ -65,8 +65,22 @@ class Html {
 		return $tag->getHtml();
 	}
 
-	public static function datePicker($name) {
+	public static function hidden($name, $value) {
 		$attributes = array(
+				'name' => $name, 
+				'value' => htmlspecialchars($value),
+				'type' => 'hidden');
+
+		$tag = new Tag(
+			'input',
+			$attributes, 
+			null);
+		return $tag->getHtml();
+	}
+
+	public static function datePicker($name, $class = '') {
+		$attributes = array(
+				'class' => $class,
 				'name' => $name, 
 				'type' => 'date');
 
@@ -98,7 +112,7 @@ class Html {
 				'type' => 'password',
 				'name' => $name, 
 				'placeholder' => $placeholder,
-				'value' => $value);
+				'value' => htmlspecialchars($value));
 
 		$tag = new Tag(
 			'input',
@@ -107,12 +121,13 @@ class Html {
 		return $tag->getHtml();
 	}
 
-	public static function number($class, $name, $value) {
+	public static function number($class, $name, $value, $step = 1) {
 		$attributes = array(
+				'step' => $step,
 				'class' => $class,
 				'type' => 'number',
 				'name' => $name, 
-				'value' => $value);
+				'value' => htmlspecialchars($value));
 
 		$tag = new Tag(
 			'input',
@@ -125,7 +140,7 @@ class Html {
 		$attributes = array(
 				'class' => $class,
 				'type' => 'submit',
-				'value' => $value);
+				'value' => htmlspecialchars($value));
 
 		$tag = new Tag(
 			'input',
@@ -139,7 +154,7 @@ class Html {
 		$optionsHtml = '';
 
 		foreach ($options as $key => $value) {
-			$optionAttributes = array('value' => $key);
+			$optionAttributes = array('value' => htmlspecialchars($key));
 			if ($selected != null && $key == $selected) {
 				$optionAttributes['selected'] = '';
 			}
@@ -229,8 +244,11 @@ class Html {
 	}
 
 	public static function csrfToken() {
-		$token = Utils::getToken(80);
-		setcookie('CSRF-TOKEN', $token, time() + 1800, '/');
+		static $token = null;
+		if ($token == null) {
+			$token = Utils::getToken(80);
+			setcookie('CSRF-TOKEN', $token, time() + 1800, '/');
+		}
 
 		$attributes = array(
 				'type' => 'hidden',

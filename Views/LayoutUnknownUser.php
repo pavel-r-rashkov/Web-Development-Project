@@ -7,7 +7,7 @@ use Core\ResultExecution\ViewEngine;
 <html>
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../Content/BaseStyles.css">
+	<link rel="stylesheet" href="<?php echo APP_ROOT_URL ?>Content/BaseStyles.css">
 	<title>Shop</title>
 </head>
 <body>
@@ -24,7 +24,6 @@ use Core\ResultExecution\ViewEngine;
 		</div>
 	</row>
 	<row>
-		<div>======================================</div>
 		<?php include('../Views/Shared/Footer.php'); ?>
 	</row>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
